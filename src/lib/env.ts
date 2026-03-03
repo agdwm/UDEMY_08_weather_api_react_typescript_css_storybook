@@ -22,7 +22,7 @@ const WEATHER_API_KEY_PATTERN = /^[a-zA-Z0-9_-]{10,}$/;
 
 const createMissingApiKeyError = (): Error => {
   return new Error(`
-❌ VITE_API_KEY no está configurado
+❌ VITE_WEATHER_API_KEY no está configurado
 
 Por favor sigue estos pasos:
 
@@ -33,7 +33,7 @@ Por favor sigue estos pasos:
 5. Reinicia el servidor (pnpm run dev)
 
 Ejemplo .env:
-VITE_API_KEY=abc123def456...
+VITE_WEATHER_API_KEY=abc123def456...
 `);
 };
 
@@ -47,10 +47,10 @@ const normalizeMode = (mode: string | undefined): EnvVariables["env"] => {
 
 /**
  * Validar y obtener las variables de entorno
- * @throws Error si falta VITE_API_KEY
+ * @throws Error si falta VITE_WEATHER_API_KEY
  */
 export const validateEnv = (): EnvVariables => {
-  const rawApiKey = import.meta.env.VITE_API_KEY;
+  const rawApiKey = import.meta.env.VITE_WEATHER_API_KEY;
   const env = normalizeMode(import.meta.env.MODE);
   const apiKey = (rawApiKey ?? "").trim();
 
@@ -61,14 +61,14 @@ export const validateEnv = (): EnvVariables => {
 
   if (PLACEHOLDER_VALUES.has(apiKey.toLowerCase())) {
     throw new Error(
-      "❌ VITE_API_KEY contiene un valor de ejemplo. Usa tu clave real de WeatherAPI.",
+      "❌ VITE_WEATHER_API_KEY contiene un valor de ejemplo. Usa tu clave real de WeatherAPI.",
     );
   }
 
   // Validar formato básico de API Key
   if (!WEATHER_API_KEY_PATTERN.test(apiKey)) {
     throw new Error(
-      "❌ VITE_API_KEY parece inválida. Debe tener al menos 10 caracteres y usar solo letras, números, guion o guion bajo.",
+      "❌ VITE_WEATHER_API_KEY parece inválida. Debe tener al menos 10 caracteres y usar solo letras, números, guion o guion bajo.",
     );
   }
 
