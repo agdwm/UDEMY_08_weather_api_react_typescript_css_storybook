@@ -1,0 +1,145 @@
+/**
+ * ============================================================
+ * DESIGN TOKENS
+ * ============================================================
+ * Sistema centralizado de variables de diseño (colores, tipografía,
+ * espaciado, etc). Estos tokens garantizan coherencia visual y
+ * facilitan el mantenimiento del sistema de diseño.
+ * 
+ * Estructura: PRIMITIVOS → SEMÁNTICOS → USO EN COMPONENTES
+ */
+@layer base {
+  :root {
+    /**
+   * COLORES PRIMITIVOS
+   * Colores base de la paleta. No se usan directamente en componentes.
+   */
+    --blue-500: #2a70f2;
+    --red-500: #ef4444;
+    --green-500: #22c55e;
+    --gray-900: #111827;
+    --gray-500: #6b7280;
+    --gray-200: #e5e7eb;
+    --white: #ffffff;
+
+    /**
+   * COLORES SEMÁNTICOS
+   * Nombres significativos para el contexto del componente.
+   * Estos SÍ se usan en los estilos de componentes.
+   */
+    --color-text: var(--gray-900);
+    --color-muted: var(--gray-500);
+    --color-bg: var(--white);
+    --color-primary: var(--blue-500);
+    --color-danger: var(--red-500);
+    --color-success: var(--green-500);
+    --color-border: var(--gray-200);
+
+    /**
+   * BASE DE ESCALA
+   * Referencia para conversiones de px → rem en cálculos CSS.
+   * Uso recomendado: calc(14 / var(--rem-base) * 1rem)
+   */
+    --rem-base: 16;
+
+    /**
+   * TIPOGRAFÍA
+   * Stack de fuentes ordenadas por preferencia (fallback)
+   */
+    --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+
+    /**
+   * ESCALA TIPOGRÁFICA
+   * Tamaños de fuente predefinidos, en rem (escalable)
+   */
+    --font-size-sm: 0.875rem; /* Etiquetas, ayuda */
+    --font-size-base: 1rem; /* Texto base por defecto */
+    --font-size-lg: 1.125rem; /* Subtítulos */
+    --font-size-xl: 1.25rem; /* Titulos pequeños */
+    --font-size-2xl: 1.5rem; /* Títulos grandes */
+    --font-size-3xl: 2rem; /* Títulos destacados */
+    --line-height-base: 1.5; /* Interlineado base */
+    --font-weight-base: 400; /* Peso tipográfico base */
+    --color-scheme-base: light dark; /* Esquema de color base */
+
+    /**
+   * ESCALA DE ESPACIADO
+   * Sistema de espaciado 4px base (múltiplos)
+   * Uso: padding, margin, gap
+   */
+    --space-base: 4px;
+    --space-1: calc(var(--space-base) * 1); /* 4px */
+    --space-2: calc(var(--space-base) * 2); /* 8px */
+    --space-3: calc(var(--space-base) * 3); /* 12px */
+    --space-4: calc(var(--space-base) * 4); /* 16px */
+    --space-5: calc(var(--space-base) * 6); /* 24px */
+    --space-6: calc(var(--space-base) * 8); /* 32px */
+
+    /**
+   * RADIOS DE BORDE
+   * Valores predefinidos para border-radius
+   */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 1rem;
+
+    /**
+   * SOMBRAS
+   * Profundidad visual mediante sombras
+   */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06); /* Sutil */
+    --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.12); /* Moderada */
+
+    /**
+   * TRANSICIONES
+   * Duración estándar de animaciones (velocidad)
+   */
+    --transition-fast: 150ms ease; /* Interacciones rápidas (hover, click) */
+    --transition-base: 250ms ease; /* Interacciones estándar */
+    --transition-slow: 400ms ease; /* Animaciones complejas */
+
+    /**
+   * ESCALA DE Z-INDEX
+   * Orden de apilamiento (stacking context)
+   * Previene conflictos y mantiene jerarquía clara
+   */
+    --z-dropdown: 1000; /* Menús desplegables (tooltip, dropdown) */
+    --z-modal: 1100; /* Modales */
+    --z-toast: 1200; /* Notificaciones */
+
+    /**
+     * BREAKPOINT TOKENS
+     * Puntos de corte para diseño responsive mobile-first.
+     */
+    --breakpoint-xs: 0rem; /* Extra small devices */
+    --breakpoint-sm: 36rem; /* 576px */
+    --breakpoint-md: 48rem; /* 768px */
+    --breakpoint-lg: 64rem; /* 1024px */
+    --breakpoint-xl: 80rem; /* 1280px */
+    --breakpoint-xxl: 96rem; /* 1536px */
+  }
+
+  /**
+ * VARIABLES CSS (CSS CUSTOM PROPERTIES)
+ * Valores dinámicos para modo oscuro y temas
+ */
+
+  [data-theme="light"] {
+    --color-scheme-base: light;
+    --color-text: #111827;
+    --color-muted: #6b7280;
+    --color-bg: #ffffff;
+    --color-border: #e5e7eb;
+  }
+
+  [data-theme="dark"] {
+    --color-scheme-base: dark;
+    --color-text: #f3f4f6;
+    --color-muted: #9ca3af;
+    --color-bg: #111827;
+    --color-border: #374151;
+  }
+}

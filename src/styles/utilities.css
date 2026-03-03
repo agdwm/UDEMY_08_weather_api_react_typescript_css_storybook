@@ -1,0 +1,120 @@
+/* ========================================== */
+/* UTILITIES                                  */
+/* Clases reutilizables de composición        */
+/* ========================================== */
+
+@layer utilities {
+  /*
+ * Centra contenido con flexbox en ambos ejes.
+ * Uso:
+ *   <div class="u-flex-center"></div>
+ *   <div class="u-flex-center" style="--flex-direction: column; --flex-gap: 1rem;"></div>
+ */
+  .u-flex-center {
+    display: flex;
+    flex-direction: var(--flex-direction, row);
+    align-items: center;
+    justify-content: center;
+    gap: var(--flex-gap, 0);
+  }
+
+  /*
+ * Recorta texto en una sola línea con puntos suspensivos.
+ * Uso: class="u-truncate"
+ */
+  .u-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /*
+ * Aplica un anillo de foco accesible para navegación por teclado.
+ * Uso:
+ *   class="u-focus-ring"
+ *   class="u-focus-ring" style="--focus-ring-color: hsl(217 91% 56% / 0.35);"
+ */
+  .u-focus-ring:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--focus-ring-color, hsl(217 91% 56% / 0.35));
+  }
+
+  /*
+ * Contenedor centrado con ancho máximo para layout de página.
+ */
+  .u-container {
+    width: min(1100px, calc(100% - 2rem));
+    margin-inline: auto;
+  }
+
+  /*
+ * Aplica padding vertical con el espacio 6 del sistema.
+ * Uso: class="u-py-6"
+ */
+  .u-py-6 {
+    padding-block: var(--space-6);
+  }
+
+  /*
+ * Aplica color de texto secundario definido en tokens.
+ */
+  .u-muted {
+    color: var(--color-muted);
+  }
+
+  /*
+ * Superficie tipo tarjeta con fondo, borde, sombra y padding.
+ */
+  .u-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-4);
+  }
+
+  /*
+ * Apila elementos verticalmente con separación uniforme.
+ * Uso: class="u-flow" o class="u-flow" style="--flow-space: var(--space-4);"
+ */
+  .u-flow > * + * {
+    margin-top: var(--flow-space, var(--space-3));
+  }
+
+  /*
+ * Crea un layout en columna con separación configurable entre hijos.
+ * Uso: class="u-stack" o class="u-stack" style="--stack-gap: var(--space-4);"
+ */
+  .u-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap, var(--space-3));
+  }
+
+  /*
+ * Alinea elementos en fila con separación y ajuste de salto de línea.
+ * Uso: class="u-inline" o class="u-inline" style="--inline-gap: var(--space-2);"
+ */
+  .u-inline {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--inline-gap, var(--space-2));
+  }
+
+  /*
+ * Oculta contenido visualmente manteniéndolo disponible para tecnologías asistivas.
+ * Uso: class="u-visually-hidden"
+ */
+  .u-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
