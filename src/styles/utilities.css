@@ -29,6 +29,15 @@
   }
 
   /*
+ * Respeta saltos de línea y espacios para mostrar texto/JSON formateado.
+ * Uso: class="u-pre-wrap"
+ */
+  .u-pre-wrap {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  /*
  * Aplica un anillo de foco accesible para navegación por teclado.
  * Uso:
  *   class="u-focus-ring"
