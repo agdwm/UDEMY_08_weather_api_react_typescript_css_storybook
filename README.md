@@ -74,10 +74,34 @@ export default defineConfig([
 
 ## Variables de entorno
 
-- En Vite, solo las variables con prefijo `VITE_` se exponen al código cliente mediante `import.meta.env`.
+- En Vite, solo las variables con prefijo `VITE_` se exponen al código cliente.
 - Importante: las variables `VITE_*` son públicas en el navegador y no deben usarse para secretos reales.
 - Para claves sensibles, usa un backend/proxy y mantén los secretos en el servidor.
 - Archivos recomendados por entorno:
   - `.env.development` para desarrollo local.
   - `.env.production` para build/producción.
   - `.env.example` como plantilla compartida en el repositorio.
+- En este proyecto no se consumen directamente desde `import.meta.env` en componentes: se centralizan y validan desde `src/lib/env.ts`.
+
+### Variables requeridas
+
+- `VITE_WEATHER_API_KEY`
+- `VITE_WEATHER_API_ROOT_URL` (ejemplo: `https://api.weatherapi.com/v1`)
+
+### Arranque rápido
+
+1. Crea tu archivo de entorno local desde la plantilla:
+
+```bash
+cp .env.example .env.development
+```
+
+2. Completa los valores requeridos en `.env.development`.
+
+3. Inicia el proyecto en desarrollo:
+
+```bash
+pnpm dev
+```
+
+Nota: el comando `pnpm build` toma los valores de `.env.production`.

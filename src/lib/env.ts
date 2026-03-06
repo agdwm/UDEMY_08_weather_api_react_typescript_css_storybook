@@ -7,6 +7,7 @@
 
 interface EnvVariables {
   apiKey: string;
+  apiRootUrl: string;
   env: "development" | "production" | "test";
 }
 
@@ -14,6 +15,14 @@ const PLACEHOLDER_VALUES = new Set([
   "tu_api_key_aqui",
   "your_api_key_here",
   "api_key",
+  "changeme",
+  "example",
+]);
+
+const PLACEHOLDER_URL_VALUES = new Set([
+  "tu_api_root_url_aqui",
+  "your_api_root_url_here",
+  "api_root_url",
   "changeme",
   "example",
 ]);
@@ -37,6 +46,22 @@ VITE_WEATHER_API_KEY=abc123def456...
 `);
 };
 
+const createMissingApiRootUrlError = (): Error => {
+  return new Error(`
+❌ VITE_WEATHER_API_ROOT_URL no está configurado
+
+Por favor sigue estos pasos:
+
+1. Crea un archivo .env en la raíz del proyecto
+2. Copia el contenido de .env.example
+3. Establece la URL base de WeatherAPI
+4. Reinicia el servidor (pnpm run dev)
+
+Ejemplo .env:
+VITE_WEATHER_API_ROOT_URL=https://api.weatherapi.com/v1
+`);
+};
+
 const normalizeMode = (mode: string | undefined): EnvVariables["env"] => {
   if (mode === "production" || mode === "test") {
     return mode;
@@ -51,8 +76,10 @@ const normalizeMode = (mode: string | undefined): EnvVariables["env"] => {
  */
 export const validateEnv = (): EnvVariables => {
   const rawApiKey = import.meta.env.VITE_WEATHER_API_KEY;
+  const rawApiRootUrl = import.meta.env.VITE_WEATHER_API_ROOT_URL;
   const env = normalizeMode(import.meta.env.MODE);
   const apiKey = (rawApiKey ?? "").trim();
+  const apiRootUrl = (rawApiRootUrl ?? "").trim();
 
   // Validar API Key
   if (!apiKey) {
@@ -72,7 +99,25 @@ export const validateEnv = (): EnvVariables => {
     );
   }
 
-  return { apiKey, env };
+  if (!apiRootUrl) {
+    throw createMissingApiRootUrlError();
+  }
+
+  if (PLACEHOLDER_URL_VALUES.has(apiRootUrl.toLowerCase())) {
+    throw new Error(
+      "❌ VITE_WEATHER_API_ROOT_URL contiene un valor de ejemplo. Usa una URL base válida.",
+    );
+  }
+
+  try {
+    new URL(apiRootUrl);
+  } catch {
+    throw new Error(
+      "❌ VITE_WEATHER_API_ROOT_URL es inválida. Debe ser una URL absoluta, por ejemplo: https://api.weatherapi.com/v1",
+    );
+  }
+
+  return { apiKey, apiRootUrl, env };
 };
 
 // Exportar variables validadas
