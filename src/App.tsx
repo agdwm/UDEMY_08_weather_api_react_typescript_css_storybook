@@ -2,12 +2,10 @@ import type { Weather } from "@/types/weather-interface";
 import { useState } from "react";
 
 const App = () => {
-  const [outputWeather, setOutputWeather] = useState(
-    "Haz clic para cargar datos",
-  );
+  const [outputWeather, setOutputWeather] = useState("");
 
   const fetchWeather = async (city: string): Promise<void> => {
-    const apiRootUrl = import.meta.env.VITE_API_BASE_URL;
+    const apiRootUrl = import.meta.env.VITE_WEATHER_API_ROOT_URL;
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
     const endpointPath = "/current.json";
     const requestUrl = `${apiRootUrl}${endpointPath}?key=${apiKey}&q=${encodeURIComponent(city)}&aqi=no`;
@@ -25,9 +23,9 @@ const App = () => {
       setOutputWeather(JSON.stringify(data, null, 2));
     } catch (error) {
       if (error instanceof Error) {
-        setOutputWeather(`Error al consultar la API: ${error.message}`);
+        setOutputWeather(`Error on fetching weather, ${error.message}`);
       } else {
-        setOutputWeather(`Error desconocido al consultar la API`);
+        setOutputWeather("Unknown error on fetching weather");
       }
     }
   };
@@ -35,16 +33,16 @@ const App = () => {
   return (
     <main className="u-container">
       <section className="u-flow">
-        <h1>API Practice</h1>
+        <h1>API Rest Practice</h1>
         <button
           className="u-btn u-focus-ring"
           onClick={() => {
             fetchWeather("Meco, Spain");
           }}
         >
-          Consultar tiempo para Meco
+          Clic to search weather for Meco
         </button>
-        {outputWeather && <pre>{outputWeather}</pre>}
+        {outputWeather.trim().length > 0 && <pre>{outputWeather}</pre>}
       </section>
     </main>
   );
