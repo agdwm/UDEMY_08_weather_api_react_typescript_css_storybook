@@ -1,5 +1,6 @@
-import type { Weather } from "@/types/weather-interface";
 import { env } from "@/lib/env";
+import type { Weather } from "@/types/weather-interface";
+
 import { useState } from "react";
 
 const App = () => {
@@ -22,28 +23,28 @@ const App = () => {
     return data;
   };
 
-  // Gestiona el envío del formulario y actualiza el estado de la UI.
+  // Gestiona el envío del formulario y manejo de datos, incluyendo el estado de carga y errores.
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const normalizedCity = city.trim();
 
     if (!normalizedCity) {
-      setOutputWeather("Introduce una ciudad válida.");
+      setOutputWeather("Enter a valid city name");
       return;
     }
 
     setIsLoading(true);
 
     try {
-      setOutputWeather("Cargando datos...");
+      setOutputWeather("Loading data...");
       const data = await fetchWeather(normalizedCity);
       setOutputWeather(JSON.stringify(data, null, 2));
     } catch (error) {
       if (error instanceof Error) {
-        setOutputWeather(`Error on fetching weather, ${error.message}`);
+        setOutputWeather(`Error fetching weather: ${error.message}`);
       } else {
-        setOutputWeather("Unknown error on fetching weather");
+        setOutputWeather("Unknown error while fetching weather.");
       }
     } finally {
       setIsLoading(false);
@@ -53,28 +54,25 @@ const App = () => {
   return (
     <main className="u-container">
       <section className="u-flow">
-        <h1>API Rest Practice</h1>
-        <form action="" onSubmit={handleSubmit} className="u-flow">
-          <label htmlFor="city-input" className="u-inline">
-            Ciudad:
-          </label>
+        <h1>REST API Practice</h1>
+        <form action="#" onSubmit={handleSubmit} className="u-form">
+          <label htmlFor="city-input">City:</label>
           <input
             id="city-input"
             type="text"
             value={city}
             name="city"
-            placeholder="Madrid"
+            placeholder="Enter a city name"
             onChange={(e) => setCity(e.target.value)}
             disabled={isLoading}
             required
           />
-
           <button
             type="submit"
-            className="u-btn u-focus-ring u-inline"
             disabled={isLoading}
+            className="u-btn u-focus-ring u-inline"
           >
-            {isLoading ? "Cargando..." : "Obtener clima"}
+            {isLoading ? "Loading..." : "Search"}
           </button>
         </form>
         {outputWeather.trim().length > 0 && <pre>{outputWeather}</pre>}
