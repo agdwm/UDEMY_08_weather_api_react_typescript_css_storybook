@@ -3,6 +3,49 @@ import type { Weather } from "@/types/weather-interface";
 
 import { useState } from "react";
 
+const CITY_PATTERN = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;
+
+interface CityValidationResult {
+  normalizedCity: string;
+  error: string | null;
+}
+
+const validateCity = (rawValue: string): CityValidationResult => {
+  const normalizedCity = rawValue.trim();
+
+  if (!normalizedCity) {
+    return { normalizedCity, error: "Enter a valid city name." };
+  }
+
+  if (normalizedCity.length < 2) {
+    return {
+      normalizedCity,
+      error: "City name must be at least 2 characters long.",
+    };
+  }
+
+  if (normalizedCity.length > 85) {
+    return { normalizedCity, error: "City name is too long." };
+  }
+
+  if (!CITY_PATTERN.test(normalizedCity)) {
+    return {
+      normalizedCity,
+      error:
+        "City name can only include letters, spaces, apostrophes, and hyphens.",
+    };
+  }
+
+  if (normalizedCity.includes("  ")) {
+    return {
+      normalizedCity,
+      error: "City name cannot contain consecutive spaces.",
+    };
+  }
+
+  return { normalizedCity, error: null };
+};
+
 const App = () => {
   const [outputWeather, setOutputWeather] = useState("");
   const [city, setCity] = useState("");
@@ -25,28 +68,42 @@ const App = () => {
 
   // Gestiona el envío del formulario y manejo de datos, incluyendo el estado de carga y errores.
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+    // ENTRADA: detener submit + normalizar + validar.
+    // 1) Evita el submit por defecto del navegador.
     e.preventDefault();
 
-    const normalizedCity = city.trim();
+    // 2) Limpia, normaliza y valida la ciudad ingresada.
+    const { normalizedCity, error: validationError } = validateCity(city);
 
-    if (!normalizedCity) {
-      setOutputWeather("Enter a valid city name");
+    if (validationError) {
+      // 3) Si falla, muestra el error y termina.
+      setOutputWeather(validationError);
       return;
     }
 
+    // PETICIÓN: activar loading + consultar API.
+    // 4) Activa estado de carga para bloquear UI.
     setIsLoading(true);
 
     try {
+      // 5) Muestra feedback y consulta datos remotos.
       setOutputWeather("Loading data...");
       const data = await fetchWeather(normalizedCity);
+
+      // SALIDA: mostrar éxito.
+      // 6) Si todo va bien, renderiza resultado.
       setOutputWeather(JSON.stringify(data, null, 2));
     } catch (error) {
+      // SALIDA: mostrar fallo.
+      // 7) Si falla la petición, informa el error.
       if (error instanceof Error) {
         setOutputWeather(`Error fetching weather: ${error.message}`);
       } else {
         setOutputWeather("Unknown error while fetching weather.");
       }
     } finally {
+      // SALIDA: cerrar loading siempre.
+      // 8) Cierra siempre el estado de carga.
       setIsLoading(false);
     }
   };
