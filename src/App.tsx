@@ -1,6 +1,5 @@
 import { env } from "@/lib/env";
 import type { Weather } from "@/types/weather-interface";
-
 import { useState } from "react";
 
 const CITY_PATTERN = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;
@@ -10,8 +9,8 @@ interface CityValidationResult {
   error: string | null;
 }
 
-const validateCity = (rawValue: string): CityValidationResult => {
-  const normalizedCity = rawValue.trim();
+const validateCity = (rawCity: string): CityValidationResult => {
+  const normalizedCity = rawCity.trim().replace(/\s+/g, " ");
 
   if (!normalizedCity) {
     return { normalizedCity, error: "Enter a valid city name." };
@@ -36,26 +35,18 @@ const validateCity = (rawValue: string): CityValidationResult => {
     };
   }
 
-  if (normalizedCity.includes("  ")) {
-    return {
-      normalizedCity,
-      error: "City name cannot contain consecutive spaces.",
-    };
-  }
-
   return { normalizedCity, error: null };
 };
 
 const App = () => {
-  const [outputWeather, setOutputWeather] = useState("");
-  const [city, setCity] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [city, setCity] = useState<string>("");
+  const [outputWeather, setOutputWeather] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Se encarga solo de consultar la API y devolver los datos del clima.
   const fetchWeather = async (city: string): Promise<Weather> => {
     const endpointPath = "/current.json";
     const requestUrl = `${env.apiRootUrl}${endpointPath}?key=${env.apiKey}&q=${encodeURIComponent(city)}&aqi=no`;
-
     const response = await fetch(requestUrl);
 
     if (!response.ok) {
@@ -111,11 +102,11 @@ const App = () => {
   return (
     <main className="u-container">
       <section className="u-flow">
-        <h1>REST API Practice</h1>
-        <form action="#" onSubmit={handleSubmit} className="u-form">
-          <label htmlFor="city-input">City:</label>
+        <h1>REST API Practice - Weather App</h1>
+        <form action="#" onSubmit={handleSubmit}>
+          <label htmlFor="input-city">City:</label>
           <input
-            id="city-input"
+            id="input-city"
             type="text"
             value={city}
             name="city"
@@ -131,8 +122,8 @@ const App = () => {
           >
             {isLoading ? "Loading..." : "Search"}
           </button>
+          {outputWeather.length > 0 && <pre>{outputWeather}</pre>}
         </form>
-        {outputWeather.trim().length > 0 && <pre>{outputWeather}</pre>}
       </section>
     </main>
   );
