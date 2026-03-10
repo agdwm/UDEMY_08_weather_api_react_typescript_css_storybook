@@ -1,3 +1,4 @@
+import Card from "@/components/Card";
 import type { ReactNode } from "react";
 
 interface WeatherCardProps {
@@ -14,7 +15,7 @@ const WeatherCard = ({
   children,
 }: WeatherCardProps) => {
   return (
-    <section className={`c-weather-card ${className}`.trim()}>
+    <Card as="section" className={`c-weather-card ${className}`.trim()}>
       {children ? (
         children
       ) : (
@@ -27,7 +28,7 @@ const WeatherCard = ({
           ))}
         </>
       )}
-    </section>
+    </Card>
   );
 };
 

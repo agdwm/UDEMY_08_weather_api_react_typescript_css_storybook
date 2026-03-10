@@ -1,8 +1,14 @@
 @layer components {
+  /* ==========================
+     Alert (contenedor)
+     ========================== */
   .c-alert-region {
     margin-top: var(--space-3);
   }
 
+  /* ==========================
+     Mensajes compartidos (Error/Loading)
+     ========================== */
   .c-error-message,
   .c-loading-message {
     border: 1px solid var(--color-border);
@@ -12,6 +18,9 @@
     line-height: var(--line-height-base);
   }
 
+  /* ==========================
+     LoadingMessage
+     ========================== */
   .c-loading-message {
     display: inline-flex;
     align-items: center;
@@ -30,6 +39,9 @@
     font-weight: 700;
   }
 
+  /* ==========================
+     ErrorMessage
+     ========================== */
   .c-error-message {
     display: flex;
     align-items: center;
@@ -74,6 +86,19 @@
     padding: var(--space-1) var(--space-2);
   }
 
+  /* ==========================
+     Card (base generica)
+     ========================== */
+  .c-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    padding: var(--space-4);
+  }
+
+  /* ==========================
+     WeatherResult
+     ========================== */
   .c-weather-result {
     margin-top: var(--space-6);
     display: grid;
@@ -92,12 +117,11 @@
     gap: var(--space-4);
   }
 
+  /* ==========================
+     WeatherCard
+     ========================== */
   .c-weather-card {
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-    background: var(--color-bg);
     min-height: 8.5rem;
-    padding: var(--space-4);
     display: grid;
     align-content: start;
     gap: var(--space-2);
@@ -132,6 +156,9 @@
     color: var(--color-text);
   }
 
+  /* ==========================
+     Responsive (desktop)
+     ========================== */
   @media (min-width: 64rem) {
     .c-weather-result {
       margin-top: var(--space-5);
