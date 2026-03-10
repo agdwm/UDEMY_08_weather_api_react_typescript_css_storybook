@@ -1,5 +1,5 @@
-import ErrorMessage from "./ErrorMessage";
-import LoadingMessage from "./LoadingMessage";
+import ErrorMessage from "@/components/ui/ErrorMessage";
+import LoadingMessage from "@/components/ui/LoadingMessage";
 
 interface AlertProps {
   error: string | null;

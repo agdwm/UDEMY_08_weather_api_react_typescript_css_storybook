@@ -31,7 +31,7 @@ const ErrorMessage = ({ message, onDismiss }: ErrorMessageProps) => {
         <button
           className="c-error-message__dismiss u-focus-ring"
           onClick={onDismiss}
-          aria-label={`Cerrar error: ${message}`}
+          aria-label={`Dismiss error: ${message}`}
           type="button"
         >
           x

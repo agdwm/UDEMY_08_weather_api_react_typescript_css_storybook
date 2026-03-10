@@ -1,3 +1,4 @@
+import Form from "@/components/ui/Form";
 import type { SyntheticEvent } from "react";
 
 interface WeatherFormProps {
@@ -14,8 +15,7 @@ const WeatherForm = ({
   onSubmit,
 }: WeatherFormProps) => {
   return (
-    <form action="#" onSubmit={onSubmit} className="c-weather-form">
-      <label htmlFor="input-city">City:</label>
+    <Form action="#" onSubmit={onSubmit} className="c-weather-form">
       <input
         id="input-city"
         type="text"
@@ -33,7 +33,7 @@ const WeatherForm = ({
       >
         {isLoading ? "Loading..." : "Search"}
       </button>
-    </form>
+    </Form>
   );
 };
 

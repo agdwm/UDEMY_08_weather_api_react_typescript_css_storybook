@@ -1,4 +1,5 @@
-import Alert from "@/components/Alert";
+import Alert from "@/components/ui/Alert";
+import Header from "@/components/ui/Header";
 import WeatherForm from "@/components/WeatherForm";
 import WeatherResult from "@/components/WeatherResult";
 import { validateCity } from "@/lib/city-validation";
@@ -91,19 +92,25 @@ const App = () => {
   };
 
   return (
-    <main className="u-container">
-      <section className="u-flow">
-        <h1>REST API Practice - Weather App</h1>
-        <WeatherForm
-          city={city}
-          isLoading={uiStatus === "loading"}
-          onCityChange={setCity}
-          onSubmit={handleSubmit}
-        />
-        {/* Render por estado para reforzar el modelo mental de la UI */}
-        {renderStatusContent()}
-      </section>
-    </main>
+    <div className="c-app-shell">
+      <Header
+        title="Busqueda de Clima"
+        subtitle="Ingresa una ciudad para obtener informacion del clima en tiempo real"
+      />
+
+      <main className="u-container c-app-main">
+        <section className="u-flow">
+          <WeatherForm
+            city={city}
+            isLoading={uiStatus === "loading"}
+            onCityChange={setCity}
+            onSubmit={handleSubmit}
+          />
+          {/* Render por estado para reforzar el modelo mental de la UI */}
+          {renderStatusContent()}
+        </section>
+      </main>
+    </div>
   );
 };
 
