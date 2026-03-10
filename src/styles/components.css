@@ -18,6 +18,11 @@
     line-height: var(--line-height-base);
   }
 
+  :is(.c-loading-message__icon, .c-error-message__icon) {
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+
   /* ==========================
      LoadingMessage
      ========================== */
@@ -32,11 +37,6 @@
       var(--color-primary) 30%,
       var(--color-border)
     );
-
-    & .c-loading-message__icon {
-      font-family: var(--font-mono);
-      font-weight: 700;
-    }
   }
 
   /* ==========================
@@ -59,6 +59,10 @@
       outline: none;
     }
 
+    & :is(.c-error-message__content, .c-error-message__icon) {
+      display: inline-flex;
+    }
+
     & .c-error-message__content {
       display: inline-flex;
       align-items: flex-start;
@@ -67,8 +71,6 @@
 
     & .c-error-message__icon {
       display: inline-flex;
-      font-family: var(--font-mono);
-      font-weight: 700;
     }
 
     & .c-error-message__text {
@@ -87,7 +89,7 @@
   }
 
   /* ==========================
-     Card (base generica)
+     Card (base genérica)
      ========================== */
   .c-card {
     border: 1px solid var(--color-border);
@@ -100,12 +102,14 @@
      WeatherResult
      ========================== */
   .c-weather-result {
-    margin-top: var(--space-6);
+    margin-top: clamp(1.5rem, 3.5vw, 2rem);
+    container-type: inline-size;
+    container-name: weather-result;
     display: grid;
-    gap: var(--space-4);
+    gap: clamp(0.75rem, 2vw, 1rem);
 
     & .c-weather-result__city {
-      font-size: var(--font-size-3xl);
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
       font-weight: 700;
       letter-spacing: -0.01em;
     }
@@ -113,12 +117,10 @@
     & .c-weather-result__cards {
       display: grid;
       grid-template-columns: 1fr;
-      gap: var(--space-4);
+      gap: clamp(0.75rem, 2vw, 1rem);
     }
 
-    @media (min-width: 64rem) {
-      margin-top: var(--space-5);
-
+    @container weather-result (min-width: 48rem) {
       & .c-weather-result__cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -134,22 +136,28 @@
     align-content: start;
     gap: var(--space-2);
 
-    & .c-weather-card__title,
-    & .c-weather-card__heading,
-    & .c-weather-card__temp {
+    &
+      :is(
+        .c-weather-card__title,
+        .c-weather-card__heading,
+        .c-weather-card__temp
+      ) {
       font-weight: 600;
     }
 
-    & .c-weather-card__title,
-    & .c-weather-card__heading,
-    & .c-weather-card__value,
-    & .c-weather-card__subtitle {
-      font-size: var(--font-size-xl);
+    &
+      :is(
+        .c-weather-card__title,
+        .c-weather-card__heading,
+        .c-weather-card__value,
+        .c-weather-card__subtitle
+      ) {
+      font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
     }
 
     & .c-weather-card__temp {
       color: var(--color-primary);
-      font-size: clamp(2.25rem, 7vw, 2.75rem);
+      font-size: clamp(2.25rem, 8cqi, 2.75rem);
       line-height: 1;
     }
 
@@ -158,18 +166,8 @@
       height: 4rem;
     }
 
-    & .c-weather-card__subtitle,
-    & .c-weather-card__value {
+    & :where(.c-weather-card__subtitle, .c-weather-card__value) {
       color: var(--color-text);
-    }
-
-    @media (min-width: 64rem) {
-      & .c-weather-card__title,
-      & .c-weather-card__heading,
-      & .c-weather-card__value,
-      & .c-weather-card__subtitle {
-        font-size: var(--font-size-2xl);
-      }
     }
   }
 }
