@@ -1,61 +1,11 @@
-import { env } from "@/lib/env";
-import type { Weather } from "@/types/weather-interface";
+import { validateCity } from "@/lib/city-validation";
+import { fetchWeatherByCity } from "@/lib/weather-service";
 import { useState } from "react";
-
-const CITY_PATTERN = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;
-
-interface CityValidationResult {
-  normalizedCity: string;
-  error: string | null;
-}
-
-const validateCity = (rawCity: string): CityValidationResult => {
-  const normalizedCity = rawCity.trim().replace(/\s+/g, " ");
-
-  if (!normalizedCity) {
-    return { normalizedCity, error: "Enter a valid city name." };
-  }
-
-  if (normalizedCity.length < 2) {
-    return {
-      normalizedCity,
-      error: "City name must be at least 2 characters long.",
-    };
-  }
-
-  if (normalizedCity.length > 85) {
-    return { normalizedCity, error: "City name is too long." };
-  }
-
-  if (!CITY_PATTERN.test(normalizedCity)) {
-    return {
-      normalizedCity,
-      error:
-        "City name can only include letters, spaces, apostrophes, and hyphens.",
-    };
-  }
-
-  return { normalizedCity, error: null };
-};
 
 const App = () => {
   const [city, setCity] = useState<string>("");
   const [outputWeather, setOutputWeather] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  // Se encarga solo de consultar la API y devolver los datos del clima.
-  const fetchWeather = async (city: string): Promise<Weather> => {
-    const endpointPath = "/current.json";
-    const requestUrl = `${env.apiRootUrl}${endpointPath}?key=${env.apiKey}&q=${encodeURIComponent(city)}&aqi=no`;
-    const response = await fetch(requestUrl);
-
-    if (!response.ok) {
-      throw new Error(`${response.status} ${response.statusText}`);
-    }
-
-    const data: Weather = await response.json();
-    return data;
-  };
 
   // Gestiona el envío del formulario y manejo de datos, incluyendo el estado de carga y errores.
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
@@ -79,7 +29,7 @@ const App = () => {
     try {
       // 5) Muestra feedback y consulta datos remotos.
       setOutputWeather("Loading data...");
-      const data = await fetchWeather(normalizedCity);
+      const data = await fetchWeatherByCity(normalizedCity);
 
       // SALIDA: mostrar éxito.
       // 6) Si todo va bien, renderiza resultado.
