@@ -1,3 +1,4 @@
+import Button from "@/components/ui/Button";
 import { useEffect, useRef } from "react";
 
 interface ErrorMessageProps {
@@ -28,14 +29,14 @@ const ErrorMessage = ({ message, onDismiss }: ErrorMessageProps) => {
         <p className="c-error-message__text">{message}</p>
       </div>
       {onDismiss && (
-        <button
+        <Button
           className="c-error-message__dismiss u-focus-ring"
           onClick={onDismiss}
           aria-label={`Dismiss error: ${message}`}
           type="button"
         >
           x
-        </button>
+        </Button>
       )}
     </div>
   );

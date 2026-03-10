@@ -107,6 +107,7 @@
     }
 
     & .c-error-message__dismiss {
+      min-block-size: auto;
       border: 1px solid currentColor;
       border-radius: var(--radius-sm);
       background: transparent;
@@ -150,6 +151,34 @@
   }
 
   /* ==========================
+       Button (base genérica)
+       ========================== */
+  .c-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-block-size: 3rem;
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    padding-block: 1rem;
+    padding-inline: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      filter var(--transition-fast),
+      transform var(--transition-fast),
+      opacity var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-fast);
+  }
+
+  .c-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+
+  /* ==========================
      WeatherForm
      ========================== */
   .c-weather-form {
@@ -160,6 +189,66 @@
     transition:
       border-color var(--transition-fast),
       box-shadow var(--transition-fast);
+  }
+
+  .c-weather-form :is(.c-weather-form__input, .c-weather-form__submit) {
+    block-size: 3rem;
+    padding-block: 0;
+    padding-inline: 1rem;
+    line-height: 1.2;
+  }
+
+  .c-weather-form__input {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      background-color var(--transition-fast);
+  }
+
+  .c-weather-form__input::placeholder {
+    color: var(--color-muted);
+  }
+
+  .c-weather-form__input:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+  }
+
+  .c-weather-form__submit {
+    justify-content: center;
+    border: none;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, #2f70ea 0%, #1f5ed6 100%);
+    color: #fff;
+    transition:
+      filter var(--transition-fast),
+      transform var(--transition-fast),
+      opacity var(--transition-fast);
+  }
+
+  .c-weather-form__submit:not(:disabled):hover {
+    filter: brightness(1.06);
+  }
+
+  .c-weather-form__submit:not(:disabled):active {
+    transform: translateY(1px);
+  }
+
+  .c-weather-form__submit:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+
+  @media (min-width: 48rem) {
+    .c-weather-form {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      column-gap: var(--space-2);
+    }
   }
 
   @supports selector(.c-weather-form:has(input)) {

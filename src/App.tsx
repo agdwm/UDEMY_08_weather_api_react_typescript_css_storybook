@@ -1,7 +1,7 @@
 import Alert from "@/components/ui/Alert";
 import Header from "@/components/ui/Header";
-import WeatherForm from "@/components/WeatherForm";
-import WeatherResult from "@/components/WeatherResult";
+import WeatherForm from "@/components/weather/WeatherForm";
+import WeatherResult from "@/components/weather/WeatherResult";
 import { validateCity } from "@/lib/city-validation";
 import { fetchWeatherByCity, WeatherRequestError } from "@/lib/weather-service";
 import type { Weather } from "@/types/weather-interface";

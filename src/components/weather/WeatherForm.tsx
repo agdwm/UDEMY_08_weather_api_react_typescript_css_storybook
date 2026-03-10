@@ -1,3 +1,4 @@
+import Button from "@/components/ui/Button";
 import Form from "@/components/ui/Form";
 import type { SyntheticEvent } from "react";
 
@@ -17,6 +18,7 @@ const WeatherForm = ({
   return (
     <Form action="#" onSubmit={onSubmit} className="c-weather-form">
       <input
+        className="c-weather-form__input u-focus-ring"
         id="input-city"
         type="text"
         value={city}
@@ -26,13 +28,13 @@ const WeatherForm = ({
         disabled={isLoading}
         required
       />
-      <button
+      <Button
         type="submit"
         disabled={isLoading}
-        className="u-btn u-focus-ring u-inline"
+        className="c-weather-form__submit u-focus-ring"
       >
         {isLoading ? "Loading..." : "Search"}
-      </button>
+      </Button>
     </Form>
   );
 };

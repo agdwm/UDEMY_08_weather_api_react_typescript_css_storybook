@@ -1,4 +1,4 @@
-import WeatherCard from "@/components/WeatherCard";
+import WeatherCard from "@/components/weather/WeatherCard";
 import type { Weather } from "@/types/weather-interface";
 
 interface WeatherResultProps {
