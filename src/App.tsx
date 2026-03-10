@@ -1,5 +1,6 @@
+import Alert from "@/components/Alert";
 import { validateCity } from "@/lib/city-validation";
-import { fetchWeatherByCity } from "@/lib/weather-service";
+import { fetchWeatherByCity, WeatherRequestError } from "@/lib/weather-service";
 import type { Weather } from "@/types/weather-interface";
 import { useState } from "react";
 
@@ -56,12 +57,35 @@ const App = () => {
       setUiStatus("error");
       setWeatherData(null);
 
-      if (error instanceof Error) {
+      if (error instanceof WeatherRequestError) {
+        setErrorMessage(error.message);
+      } else if (error instanceof Error) {
         setErrorMessage(`Error fetching weather: ${error.message}`);
       } else {
         setErrorMessage("Unknown error while fetching weather.");
       }
     }
+  };
+
+  const renderStatusContent = () => {
+    if (uiStatus === "loading" || uiStatus === "error") {
+      return (
+        <Alert
+          error={uiStatus === "error" ? errorMessage : null}
+          isPending={uiStatus === "loading"}
+          onDismissError={() => {
+            setErrorMessage(null);
+            setUiStatus("idle");
+          }}
+        />
+      );
+    }
+
+    if (uiStatus === "success" && weatherData) {
+      return <pre>{JSON.stringify(weatherData, null, 2)}</pre>;
+    }
+
+    return null;
   };
 
   return (
@@ -89,11 +113,7 @@ const App = () => {
           </button>
 
           {/* Render por estado para reforzar el modelo mental de la UI */}
-          {uiStatus === "loading" && <p>Loading data...</p>}
-          {uiStatus === "error" && errorMessage && <pre>{errorMessage}</pre>}
-          {uiStatus === "success" && weatherData && (
-            <pre>{JSON.stringify(weatherData, null, 2)}</pre>
-          )}
+          {renderStatusContent()}
         </form>
       </section>
     </main>
