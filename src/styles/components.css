@@ -33,7 +33,7 @@
       var(--color-border)
     );
 
-    &__icon {
+    & .c-loading-message__icon {
       font-family: var(--font-mono);
       font-weight: 700;
     }
@@ -59,23 +59,23 @@
       outline: none;
     }
 
-    &__content {
+    & .c-error-message__content {
       display: inline-flex;
       align-items: flex-start;
       gap: var(--space-2);
     }
 
-    &__icon {
+    & .c-error-message__icon {
       display: inline-flex;
       font-family: var(--font-mono);
       font-weight: 700;
     }
 
-    &__text {
+    & .c-error-message__text {
       margin: 0;
     }
 
-    &__dismiss {
+    & .c-error-message__dismiss {
       border: 1px solid currentColor;
       border-radius: var(--radius-sm);
       background: transparent;
@@ -104,13 +104,13 @@
     display: grid;
     gap: var(--space-4);
 
-    &__city {
+    & .c-weather-result__city {
       font-size: var(--font-size-3xl);
       font-weight: 700;
       letter-spacing: -0.01em;
     }
 
-    &__cards {
+    & .c-weather-result__cards {
       display: grid;
       grid-template-columns: 1fr;
       gap: var(--space-4);
@@ -119,7 +119,7 @@
     @media (min-width: 64rem) {
       margin-top: var(--space-5);
 
-      &__cards {
+      & .c-weather-result__cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
@@ -134,40 +134,40 @@
     align-content: start;
     gap: var(--space-2);
 
-    &__title,
-    &__heading,
-    &__temp {
+    & .c-weather-card__title,
+    & .c-weather-card__heading,
+    & .c-weather-card__temp {
       font-weight: 600;
     }
 
-    &__title,
-    &__heading,
-    &__value,
-    &__subtitle {
+    & .c-weather-card__title,
+    & .c-weather-card__heading,
+    & .c-weather-card__value,
+    & .c-weather-card__subtitle {
       font-size: var(--font-size-xl);
     }
 
-    &__temp {
+    & .c-weather-card__temp {
       color: var(--color-primary);
       font-size: clamp(2.25rem, 7vw, 2.75rem);
       line-height: 1;
     }
 
-    &--condition img {
+    &.c-weather-card--condition img {
       width: 4rem;
       height: 4rem;
     }
 
-    &__subtitle,
-    &__value {
+    & .c-weather-card__subtitle,
+    & .c-weather-card__value {
       color: var(--color-text);
     }
 
     @media (min-width: 64rem) {
-      &__title,
-      &__heading,
-      &__value,
-      &__subtitle {
+      & .c-weather-card__title,
+      & .c-weather-card__heading,
+      & .c-weather-card__value,
+      & .c-weather-card__subtitle {
         font-size: var(--font-size-2xl);
       }
     }
