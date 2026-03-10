@@ -1,51 +1,66 @@
 import { validateCity } from "@/lib/city-validation";
 import { fetchWeatherByCity } from "@/lib/weather-service";
+import type { Weather } from "@/types/weather-interface";
 import { useState } from "react";
 
-const App = () => {
-  const [city, setCity] = useState<string>("");
-  const [outputWeather, setOutputWeather] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+type UiStatus = "idle" | "loading" | "success" | "error";
 
-  // Gestiona el envío del formulario y manejo de datos, incluyendo el estado de carga y errores.
+const App = () => {
+  // 1) Estado de entrada del formulario.
+  const [city, setCity] = useState<string>("");
+
+  // 2) Estado de UI: controla que se renderiza (reposo, carga, exito o error).
+  const [uiStatus, setUiStatus] = useState<UiStatus>("idle");
+
+  // 3) Dato de negocio cuando la peticion sale bien.
+  const [weatherData, setWeatherData] = useState<Weather | null>(null);
+
+  // 4) Mensaje de error para validacion o fallo de red/API.
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Flujo mental para memorizar:
+  // A) prevenir submit por defecto
+  // B) validar entrada
+  // C) pasar a loading y limpiar estado previo
+  // D) pedir datos al servicio
+  // E) success con datos o error con mensaje
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
-    // ENTRADA: detener submit + normalizar + validar.
-    // 1) Evita el submit por defecto del navegador.
+    // A) Evita recarga de pagina al enviar el formulario.
     e.preventDefault();
 
-    // 2) Limpia, normaliza y valida la ciudad ingresada.
+    // B) Normaliza y valida la ciudad escrita por el usuario.
     const { normalizedCity, error: validationError } = validateCity(city);
 
     if (validationError) {
-      // 3) Si falla, muestra el error y termina.
-      setOutputWeather(validationError);
+      // B.1) Si falla validacion, no llamamos a la API.
+      setUiStatus("error");
+      setErrorMessage(validationError);
+      setWeatherData(null);
       return;
     }
 
-    // PETICIÓN: activar loading + consultar API.
-    // 4) Activa estado de carga para bloquear UI.
-    setIsLoading(true);
+    // C) Inicia una nueva busqueda: limpiamos error/datos anteriores y activamos loading.
+    setUiStatus("loading");
+    setErrorMessage(null);
+    setWeatherData(null);
 
     try {
-      // 5) Muestra feedback y consulta datos remotos.
-      setOutputWeather("Loading data...");
+      // D) Llamada al servicio desacoplado de la UI.
       const data = await fetchWeatherByCity(normalizedCity);
 
-      // SALIDA: mostrar éxito.
-      // 6) Si todo va bien, renderiza resultado.
-      setOutputWeather(JSON.stringify(data, null, 2));
+      // E.1) Exito: guardamos datos y cambiamos el estado para renderizar resultado.
+      setWeatherData(data);
+      setUiStatus("success");
     } catch (error) {
-      // SALIDA: mostrar fallo.
-      // 7) Si falla la petición, informa el error.
+      // E.2) Error: mantenemos datos en null y mostramos mensaje.
+      setUiStatus("error");
+      setWeatherData(null);
+
       if (error instanceof Error) {
-        setOutputWeather(`Error fetching weather: ${error.message}`);
+        setErrorMessage(`Error fetching weather: ${error.message}`);
       } else {
-        setOutputWeather("Unknown error while fetching weather.");
+        setErrorMessage("Unknown error while fetching weather.");
       }
-    } finally {
-      // SALIDA: cerrar loading siempre.
-      // 8) Cierra siempre el estado de carga.
-      setIsLoading(false);
     }
   };
 
@@ -62,17 +77,23 @@ const App = () => {
             name="city"
             placeholder="Enter a city name"
             onChange={(e) => setCity(e.target.value)}
-            disabled={isLoading}
+            disabled={uiStatus === "loading"}
             required
           />
           <button
             type="submit"
-            disabled={isLoading}
+            disabled={uiStatus === "loading"}
             className="u-btn u-focus-ring u-inline"
           >
-            {isLoading ? "Loading..." : "Search"}
+            {uiStatus === "loading" ? "Loading..." : "Search"}
           </button>
-          {outputWeather.length > 0 && <pre>{outputWeather}</pre>}
+
+          {/* Render por estado para reforzar el modelo mental de la UI */}
+          {uiStatus === "loading" && <p>Loading data...</p>}
+          {uiStatus === "error" && errorMessage && <pre>{errorMessage}</pre>}
+          {uiStatus === "success" && weatherData && (
+            <pre>{JSON.stringify(weatherData, null, 2)}</pre>
+          )}
         </form>
       </section>
     </main>
