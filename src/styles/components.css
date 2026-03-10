@@ -3,7 +3,7 @@
      Alert (contenedor)
      ========================== */
   .c-alert-region {
-    margin-top: var(--space-3);
+    margin-block-start: var(--space-3);
   }
 
   /* ==========================
@@ -13,7 +13,8 @@
   .c-loading-message {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
-    padding: var(--space-3) var(--space-4);
+    padding-block: var(--space-3);
+    padding-inline: var(--space-4);
     font-size: var(--font-size-sm);
     line-height: var(--line-height-base);
   }
@@ -31,12 +32,8 @@
     align-items: center;
     gap: var(--space-2);
     color: var(--color-text);
-    background: color-mix(in srgb, var(--color-primary) 10%, var(--color-bg));
-    border-color: color-mix(
-      in srgb,
-      var(--color-primary) 30%,
-      var(--color-border)
-    );
+    background: var(--color-bg);
+    border-color: var(--color-border);
   }
 
   /* ==========================
@@ -48,12 +45,8 @@
     justify-content: space-between;
     gap: var(--space-3);
     color: var(--color-danger);
-    background: color-mix(in srgb, var(--color-danger) 10%, var(--color-bg));
-    border-color: color-mix(
-      in srgb,
-      var(--color-danger) 35%,
-      var(--color-border)
-    );
+    background: var(--color-bg);
+    border-color: var(--color-border);
 
     &:focus {
       outline: none;
@@ -84,7 +77,28 @@
       color: inherit;
       cursor: pointer;
       line-height: 1;
-      padding: var(--space-1) var(--space-2);
+      padding-block: var(--space-1);
+      padding-inline: var(--space-2);
+    }
+  }
+
+  @supports (color: color-mix(in srgb, black, white)) {
+    .c-loading-message {
+      background: color-mix(in srgb, var(--color-primary) 10%, var(--color-bg));
+      border-color: color-mix(
+        in srgb,
+        var(--color-primary) 30%,
+        var(--color-border)
+      );
+    }
+
+    .c-error-message {
+      background: color-mix(in srgb, var(--color-danger) 10%, var(--color-bg));
+      border-color: color-mix(
+        in srgb,
+        var(--color-danger) 35%,
+        var(--color-border)
+      );
     }
   }
 
@@ -95,79 +109,201 @@
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
     background: var(--color-bg);
-    padding: var(--space-4);
+    padding-block: var(--space-4);
+    padding-inline: var(--space-4);
   }
 
   /* ==========================
-     WeatherResult
+     WeatherForm
+     ========================== */
+  .c-weather-form {
+    display: grid;
+    gap: var(--space-3);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  @supports selector(.c-weather-form:has(input)) {
+    .c-weather-form:has(#input-city:focus-visible) {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgb(42 112 242 / 0.22);
+    }
+
+    .c-weather-form:has(#input-city:invalid):not(
+        :has(#input-city:placeholder-shown)
+      ) {
+      border-color: var(--color-danger);
+      box-shadow: 0 0 0 3px rgb(239 68 68 / 0.18);
+    }
+  }
+
+  @supports (color: color-mix(in srgb, black, white)) {
+    .c-weather-form:has(#input-city:focus-visible) {
+      border-color: color-mix(
+        in srgb,
+        var(--color-primary) 45%,
+        var(--color-border)
+      );
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-primary) 22%, transparent);
+    }
+
+    .c-weather-form:has(#input-city:invalid):not(
+        :has(#input-city:placeholder-shown)
+      ) {
+      border-color: color-mix(
+        in srgb,
+        var(--color-danger) 55%,
+        var(--color-border)
+      );
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-danger) 18%, transparent);
+    }
+  }
+
+  /* ==========================
+     WeatherResult + WeatherCard (scope)
      ========================== */
   .c-weather-result {
-    margin-top: clamp(1.5rem, 3.5vw, 2rem);
-    container-type: inline-size;
-    container-name: weather-result;
+    margin-block-start: clamp(1.5rem, 3.5vw, 2rem);
     display: grid;
     gap: clamp(0.75rem, 2vw, 1rem);
+  }
 
-    & .c-weather-result__city {
+  .c-weather-result .c-weather-result__city {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  .c-weather-result .c-weather-result__cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(0.75rem, 2vw, 1rem);
+  }
+
+  .c-weather-result .c-weather-card {
+    min-height: 8.5rem;
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+  }
+
+  .c-weather-result
+    .c-weather-card
+    :is(
+      .c-weather-card__title,
+      .c-weather-card__heading,
+      .c-weather-card__temp
+    ) {
+    font-weight: 600;
+  }
+
+  .c-weather-result
+    .c-weather-card
+    :is(
+      .c-weather-card__title,
+      .c-weather-card__heading,
+      .c-weather-card__value,
+      .c-weather-card__subtitle
+    ) {
+    font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
+  }
+
+  .c-weather-result .c-weather-card .c-weather-card__temp {
+    color: var(--color-primary);
+    font-size: clamp(2.25rem, 7vw, 2.75rem);
+    line-height: 1;
+  }
+
+  .c-weather-result .c-weather-card.c-weather-card--condition img {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .c-weather-result
+    .c-weather-card
+    :where(.c-weather-card__subtitle, .c-weather-card__value) {
+    color: var(--color-text);
+  }
+
+  @media (min-width: 48rem) {
+    .c-weather-result .c-weather-result__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @scope (.c-weather-result) {
+    :scope {
+      container-type: inline-size;
+      container-name: weather-result;
+    }
+
+    .c-weather-result__city {
       font-size: clamp(1.75rem, 4vw, 2.5rem);
       font-weight: 700;
       letter-spacing: -0.01em;
     }
 
-    & .c-weather-result__cards {
+    .c-weather-result__cards {
       display: grid;
       grid-template-columns: 1fr;
       gap: clamp(0.75rem, 2vw, 1rem);
     }
 
+    .c-weather-card {
+      min-height: 8.5rem;
+      display: grid;
+      align-content: start;
+      gap: var(--space-2);
+
+      &
+        :is(
+          .c-weather-card__title,
+          .c-weather-card__heading,
+          .c-weather-card__temp
+        ) {
+        font-weight: 600;
+      }
+
+      &
+        :is(
+          .c-weather-card__title,
+          .c-weather-card__heading,
+          .c-weather-card__value,
+          .c-weather-card__subtitle
+        ) {
+        font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
+      }
+
+      & .c-weather-card__temp {
+        font-size: clamp(2.25rem, 8cqi, 2.75rem);
+      }
+
+      &.c-weather-card--condition img {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      & :where(.c-weather-card__subtitle, .c-weather-card__value) {
+        color: var(--color-text);
+      }
+    }
+
     @container weather-result (min-width: 48rem) {
-      & .c-weather-result__cards {
+      .c-weather-result__cards {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
   }
 
-  /* ==========================
-     WeatherCard
-     ========================== */
-  .c-weather-card {
-    min-height: 8.5rem;
-    display: grid;
-    align-content: start;
-    gap: var(--space-2);
-
-    &
-      :is(
-        .c-weather-card__title,
-        .c-weather-card__heading,
-        .c-weather-card__temp
-      ) {
-      font-weight: 600;
-    }
-
-    &
-      :is(
-        .c-weather-card__title,
-        .c-weather-card__heading,
-        .c-weather-card__value,
-        .c-weather-card__subtitle
-      ) {
-      font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
-    }
-
-    & .c-weather-card__temp {
-      color: var(--color-primary);
-      font-size: clamp(2.25rem, 8cqi, 2.75rem);
-      line-height: 1;
-    }
-
-    &.c-weather-card--condition img {
-      width: 4rem;
-      height: 4rem;
-    }
-
-    & :where(.c-weather-card__subtitle, .c-weather-card__value) {
-      color: var(--color-text);
+  @supports not (container-type: inline-size) {
+    .c-weather-result {
+      container-type: normal;
+      container-name: none;
     }
   }
 }

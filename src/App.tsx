@@ -1,4 +1,5 @@
 import Alert from "@/components/Alert";
+import WeatherForm from "@/components/WeatherForm";
 import WeatherResult from "@/components/WeatherResult";
 import { validateCity } from "@/lib/city-validation";
 import { fetchWeatherByCity, WeatherRequestError } from "@/lib/weather-service";
@@ -93,29 +94,14 @@ const App = () => {
     <main className="u-container">
       <section className="u-flow">
         <h1>REST API Practice - Weather App</h1>
-        <form action="#" onSubmit={handleSubmit}>
-          <label htmlFor="input-city">City:</label>
-          <input
-            id="input-city"
-            type="text"
-            value={city}
-            name="city"
-            placeholder="Enter a city name"
-            onChange={(e) => setCity(e.target.value)}
-            disabled={uiStatus === "loading"}
-            required
-          />
-          <button
-            type="submit"
-            disabled={uiStatus === "loading"}
-            className="u-btn u-focus-ring u-inline"
-          >
-            {uiStatus === "loading" ? "Loading..." : "Search"}
-          </button>
-
-          {/* Render por estado para reforzar el modelo mental de la UI */}
-          {renderStatusContent()}
-        </form>
+        <WeatherForm
+          city={city}
+          isLoading={uiStatus === "loading"}
+          onCityChange={setCity}
+          onSubmit={handleSubmit}
+        />
+        {/* Render por estado para reforzar el modelo mental de la UI */}
+        {renderStatusContent()}
       </section>
     </main>
   );
