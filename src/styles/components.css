@@ -32,11 +32,11 @@
       var(--color-primary) 30%,
       var(--color-border)
     );
-  }
 
-  .c-loading-message__icon {
-    font-family: var(--font-mono);
-    font-weight: 700;
+    &__icon {
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
   }
 
   /* ==========================
@@ -54,36 +54,36 @@
       var(--color-danger) 35%,
       var(--color-border)
     );
-  }
 
-  .c-error-message:focus {
-    outline: none;
-  }
+    &:focus {
+      outline: none;
+    }
 
-  .c-error-message__content {
-    display: inline-flex;
-    align-items: flex-start;
-    gap: var(--space-2);
-  }
+    &__content {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
 
-  .c-error-message__icon {
-    display: inline-flex;
-    font-family: var(--font-mono);
-    font-weight: 700;
-  }
+    &__icon {
+      display: inline-flex;
+      font-family: var(--font-mono);
+      font-weight: 700;
+    }
 
-  .c-error-message__text {
-    margin: 0;
-  }
+    &__text {
+      margin: 0;
+    }
 
-  .c-error-message__dismiss {
-    border: 1px solid currentColor;
-    border-radius: var(--radius-sm);
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
-    line-height: 1;
-    padding: var(--space-1) var(--space-2);
+    &__dismiss {
+      border: 1px solid currentColor;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      line-height: 1;
+      padding: var(--space-1) var(--space-2);
+    }
   }
 
   /* ==========================
@@ -103,18 +103,26 @@
     margin-top: var(--space-6);
     display: grid;
     gap: var(--space-4);
-  }
 
-  .c-weather-result__city {
-    font-size: var(--font-size-3xl);
-    font-weight: 700;
-    letter-spacing: -0.01em;
-  }
+    &__city {
+      font-size: var(--font-size-3xl);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
 
-  .c-weather-result__cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
+    &__cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    @media (min-width: 64rem) {
+      margin-top: var(--space-5);
+
+      &__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
   }
 
   /* ==========================
@@ -125,54 +133,43 @@
     display: grid;
     align-content: start;
     gap: var(--space-2);
-  }
 
-  .c-weather-card__title,
-  .c-weather-card__heading,
-  .c-weather-card__temp {
-    font-weight: 600;
-  }
-
-  .c-weather-card__title,
-  .c-weather-card__heading,
-  .c-weather-card__value,
-  .c-weather-card__subtitle {
-    font-size: var(--font-size-xl);
-  }
-
-  .c-weather-card__temp {
-    color: var(--color-primary);
-    font-size: clamp(2.25rem, 7vw, 2.75rem);
-    line-height: 1;
-  }
-
-  .c-weather-card--condition img {
-    width: 4rem;
-    height: 4rem;
-  }
-
-  .c-weather-card__subtitle,
-  .c-weather-card__value {
-    color: var(--color-text);
-  }
-
-  /* ==========================
-     Responsive (desktop)
-     ========================== */
-  @media (min-width: 64rem) {
-    .c-weather-result {
-      margin-top: var(--space-5);
+    &__title,
+    &__heading,
+    &__temp {
+      font-weight: 600;
     }
 
-    .c-weather-result__cards {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    &__title,
+    &__heading,
+    &__value,
+    &__subtitle {
+      font-size: var(--font-size-xl);
     }
 
-    .c-weather-card__title,
-    .c-weather-card__heading,
-    .c-weather-card__value,
-    .c-weather-card__subtitle {
-      font-size: var(--font-size-2xl);
+    &__temp {
+      color: var(--color-primary);
+      font-size: clamp(2.25rem, 7vw, 2.75rem);
+      line-height: 1;
+    }
+
+    &--condition img {
+      width: 4rem;
+      height: 4rem;
+    }
+
+    &__subtitle,
+    &__value {
+      color: var(--color-text);
+    }
+
+    @media (min-width: 64rem) {
+      &__title,
+      &__heading,
+      &__value,
+      &__subtitle {
+        font-size: var(--font-size-2xl);
+      }
     }
   }
 }

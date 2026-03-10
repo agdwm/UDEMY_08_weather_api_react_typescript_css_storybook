@@ -6,8 +6,14 @@ interface CardProps {
   children: ReactNode;
 }
 
-const Card = ({ as: Component = "div", className = "", children }: CardProps) => {
-  return <Component className={`c-card ${className}`.trim()}>{children}</Component>;
+const Card = ({
+  as: Component = "div",
+  className = "",
+  children,
+}: CardProps) => {
+  return (
+    <Component className={`c-card ${className}`.trim()}>{children}</Component>
+  );
 };
 
 export default Card;
