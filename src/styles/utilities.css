@@ -45,14 +45,14 @@
  */
   .u-focus-ring:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px var(--focus-ring-color, hsl(217 91% 56% / 0.35));
+    box-shadow: 0 0 0 3px var(--focus-ring-color, var(--color-ring-primary));
   }
 
   /*
  * Contenedor centrado con ancho máximo para layout de página.
  */
   .u-container {
-    width: min(1100px, calc(100% - 2rem));
+    width: min(1100px, calc(100% - (var(--space-4) * 2)));
     margin-inline: auto;
   }
 

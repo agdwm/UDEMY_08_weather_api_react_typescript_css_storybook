@@ -15,11 +15,15 @@
    * Colores base de la paleta. No se usan directamente en componentes.
    */
     --blue-500: #2a70f2;
+    --blue-600: #1f5ed6;
     --red-500: #ef4444;
     --green-500: #22c55e;
     --gray-900: #111827;
+    --gray-700: #374151;
     --gray-500: #6b7280;
+    --gray-400: #9ca3af;
     --gray-200: #e5e7eb;
+    --gray-100: #f3f4f6;
     --white: #ffffff;
 
     /**
@@ -31,9 +35,19 @@
     --color-muted: var(--gray-500);
     --color-bg: var(--white);
     --color-primary: var(--blue-500);
+    --color-primary-strong: var(--blue-600);
+    --color-on-primary: var(--white);
     --color-danger: var(--red-500);
     --color-success: var(--green-500);
     --color-border: var(--gray-200);
+    --color-text-on-primary-muted: rgb(255 255 255 / 0.9);
+    --color-ring-primary: rgb(42 112 242 / 0.22);
+    --color-ring-danger: rgb(239 68 68 / 0.18);
+    --gradient-primary: linear-gradient(
+      135deg,
+      var(--color-primary) 0%,
+      var(--color-primary-strong) 100%
+    );
 
     /**
    * BASE DE ESCALA
@@ -129,17 +143,17 @@
 
   [data-theme="light"] {
     --color-scheme-base: light;
-    --color-text: #111827;
-    --color-muted: #6b7280;
-    --color-bg: #ffffff;
-    --color-border: #e5e7eb;
+    --color-text: var(--gray-900);
+    --color-muted: var(--gray-500);
+    --color-bg: var(--white);
+    --color-border: var(--gray-200);
   }
 
   [data-theme="dark"] {
     --color-scheme-base: dark;
-    --color-text: #f3f4f6;
-    --color-muted: #9ca3af;
-    --color-bg: #111827;
-    --color-border: #374151;
+    --color-text: var(--gray-100);
+    --color-muted: var(--gray-400);
+    --color-bg: var(--gray-900);
+    --color-border: var(--gray-700);
   }
 }

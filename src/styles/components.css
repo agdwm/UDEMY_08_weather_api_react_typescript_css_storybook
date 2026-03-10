@@ -8,8 +8,8 @@
   }
 
   .c-app-header {
-    background: linear-gradient(135deg, #2f70ea 0%, #1f5ed6 100%);
-    color: #fff;
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
   }
 
   .c-app-header__inner {
@@ -20,14 +20,14 @@
   }
 
   .c-app-header__title {
-    color: #fff;
+    color: var(--color-on-primary);
     font-size: clamp(1.85rem, 4.4vw, 3rem);
     font-weight: 700;
     line-height: 1.1;
   }
 
   .c-app-header__subtitle {
-    color: rgb(255 255 255 / 0.9);
+    color: var(--color-text-on-primary-muted);
     font-size: clamp(1rem, 1.8vw, 1.35rem);
   }
 
@@ -161,8 +161,8 @@
     min-block-size: 3rem;
     border: 1px solid transparent;
     border-radius: var(--radius-md);
-    padding-block: 1rem;
-    padding-inline: 1rem;
+    padding-block: var(--space-4);
+    padding-inline: var(--space-4);
     font-weight: 600;
     cursor: pointer;
     transition:
@@ -182,6 +182,10 @@
      WeatherForm
      ========================== */
   .c-weather-form {
+    --weather-form-control-height: 3rem;
+    --weather-form-control-padding-inline: var(--space-4);
+    --weather-form-control-line-height: 1.2;
+
     display: grid;
     gap: var(--space-3);
     border: 1px solid transparent;
@@ -192,10 +196,10 @@
   }
 
   .c-weather-form :is(.c-weather-form__input, .c-weather-form__submit) {
-    block-size: 3rem;
+    block-size: var(--weather-form-control-height);
     padding-block: 0;
-    padding-inline: 1rem;
-    line-height: 1.2;
+    padding-inline: var(--weather-form-control-padding-inline);
+    line-height: var(--weather-form-control-line-height);
   }
 
   .c-weather-form__input {
@@ -222,8 +226,8 @@
     justify-content: center;
     border: none;
     border-radius: var(--radius-sm);
-    background: linear-gradient(135deg, #2f70ea 0%, #1f5ed6 100%);
-    color: #fff;
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
     transition:
       filter var(--transition-fast),
       transform var(--transition-fast),
@@ -254,14 +258,14 @@
   @supports selector(.c-weather-form:has(input)) {
     .c-weather-form:has(#input-city:focus-visible) {
       border-color: var(--color-primary);
-      box-shadow: 0 0 0 3px rgb(42 112 242 / 0.22);
+      box-shadow: 0 0 0 3px var(--color-ring-primary);
     }
 
     .c-weather-form:has(#input-city:invalid):not(
         :has(#input-city:placeholder-shown)
       ) {
       border-color: var(--color-danger);
-      box-shadow: 0 0 0 3px rgb(239 68 68 / 0.18);
+      box-shadow: 0 0 0 3px var(--color-ring-danger);
     }
   }
 
