@@ -1,4 +1,5 @@
 import Alert from "@/components/Alert";
+import WeatherResult from "@/components/WeatherResult";
 import { validateCity } from "@/lib/city-validation";
 import { fetchWeatherByCity, WeatherRequestError } from "@/lib/weather-service";
 import type { Weather } from "@/types/weather-interface";
@@ -82,7 +83,7 @@ const App = () => {
     }
 
     if (uiStatus === "success" && weatherData) {
-      return <pre>{JSON.stringify(weatherData, null, 2)}</pre>;
+      return <WeatherResult data={weatherData} />;
     }
 
     return null;
