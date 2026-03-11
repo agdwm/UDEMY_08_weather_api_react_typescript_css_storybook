@@ -188,8 +188,9 @@
 
     display: grid;
     gap: clamp(var(--space-3), 2vw, var(--space-4));
+    /* Reserva el grosor del borde para evitar saltos visuales cuando cambia de color por estado (accesibilidad) */
     border: 1px solid transparent;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     transition:
       border-color var(--transition-fast),
       box-shadow var(--transition-fast);
@@ -255,6 +256,7 @@
   }
 
   @supports selector(.c-weather-form:has(input)) {
+    /* Mantener indicador visible de foco para navegacion con teclado (accesibilidad). */
     .c-weather-form:has(#input-city:focus-visible) {
       border-color: var(--color-primary);
       box-shadow: 0 0 0 3px var(--color-ring-primary);
