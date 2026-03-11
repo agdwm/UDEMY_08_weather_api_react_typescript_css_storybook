@@ -1,4 +1,5 @@
-const CITY_PATTERN = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+$/;
+// Permite "Ciudad" o "Ciudad, País" / "Ciudad,PaísOCódigo" (ej: "Salamanca, Spain" o "Salamanca,ES")
+const CITY_PATTERN = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]+(,\s*[A-Za-zÀ-ÖØ-öø-ÿ' -]+)?$/;
 
 export interface CityValidationResult {
   normalizedCity: string;
@@ -27,7 +28,7 @@ export const validateCity = (rawCity: string): CityValidationResult => {
     return {
       normalizedCity,
       error:
-        "City name can only include letters, spaces, apostrophes, and hyphens.",
+        "City name can only include letters, spaces, apostrophes, hyphens, and an optional country after a comma (e.g. Salamanca, Spain).",
     };
   }
 

@@ -23,7 +23,7 @@ const WeatherForm = ({
         type="text"
         value={city}
         name="city"
-        placeholder="Enter a city name"
+        placeholder="City or City, Country (e.g. Madrid, Spain)"
         onChange={(event) => onCityChange(event.target.value)}
         disabled={isLoading}
         required
