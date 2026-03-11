@@ -13,8 +13,10 @@
     inline-size: var(--switch-width);
     block-size: var(--switch-height);
     min-block-size: 0;
-    border: 1px solid transparent;
+    border: 1px solid var(--color-border);
     border-radius: 999px;
+    background: color-mix(in srgb, var(--color-bg) 82%, var(--color-border) 18%);
+    color: var(--color-text);
     padding: 0;
     cursor: pointer;
     transition:
@@ -34,10 +36,21 @@
     inline-size: var(--switch-thumb-size);
     block-size: var(--switch-thumb-size);
     border-radius: 999px;
+    background: var(--color-bg);
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.14);
     transform: translateY(-50%);
     transition: transform var(--transition-fast);
     font-size: 0.95rem;
     line-height: 1;
+  }
+
+  .c-switch:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 40%, var(--color-border) 60%);
+  }
+
+  .c-switch:focus-visible {
+    outline: 2px solid var(--color-ring-primary);
+    outline-offset: 2px;
   }
 
   .c-switch:active {
@@ -52,5 +65,16 @@
         ),
         -50%
       );
+  }
+
+  .c-switch.is-checked {
+    background: var(--gradient-primary);
+    border-color: color-mix(in srgb, var(--color-primary) 75%, var(--color-primary-strong) 25%);
+    color: var(--color-on-primary);
+  }
+
+  .c-switch:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
   }
 }

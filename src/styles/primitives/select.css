@@ -1,11 +1,54 @@
 @layer components {
   /* Reusable select base */
+  .c-select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0;
+    box-sizing: border-box;
+    min-block-size: 38px;
+    block-size: 38px;
+  }
+
   .c-select {
     min-inline-size: 0;
     inline-size: 100%;
     font: inherit;
-    color: inherit;
+    color: var(--color-text);
     cursor: pointer;
+    padding-inline-start: var(--space-4);
+    padding-inline-end: 2.2em;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    appearance: none;
+    position: relative;
+    transition:
+      border-color var(--transition-fast),
+      background-color var(--transition-fast);
+    block-size: 100%;
+  }
+
+  .c-select::-ms-expand {
+    display: none;
+  }
+
+  .c-select-wrapper::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    inset-inline-end: 1em;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1em;
+    height: 1em;
+    background: url('data:image/svg+xml;utf8,<svg fill="none" stroke="%236b7280" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"/></svg>')
+      no-repeat center/contain;
+    opacity: 0.85;
+    z-index: 2;
   }
 
   .c-select:disabled {

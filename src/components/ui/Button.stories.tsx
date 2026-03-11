@@ -5,6 +5,11 @@ const meta = {
   title: 'UI/Button',
   component: Button,
   tags: ['autodocs'],
+  args: {
+    disabled: false,
+    loading: false,
+    children: 'Get weather',
+  },
   argTypes: {
     loading: { control: 'boolean' },
     disabled: { control: 'boolean' },
@@ -16,9 +21,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  args: {
-    children: 'Get weather',
-  },
+  args: {},
 }
 
 export const Loading: Story = {

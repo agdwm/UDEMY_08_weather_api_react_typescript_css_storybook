@@ -13,6 +13,10 @@
     padding-block: clamp(1.75rem, 4vw, 2.75rem);
   }
 
+  .c-app-header__controls {
+    justify-content: end;
+  }
+
   .c-app-header__language {
     justify-self: end;
   }

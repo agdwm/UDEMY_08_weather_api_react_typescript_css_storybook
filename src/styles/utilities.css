@@ -19,6 +19,28 @@
   }
 
   /*
+   * Layout horizontal flexible.
+   * Uso: class="u-flex-row"
+   */
+  .u-flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  /*
+   * Layout vertical flexible.
+   * Uso: class="u-flex-column"
+   */
+  .u-flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  /*
  * Recorta texto en una sola línea con puntos suspensivos.
  * Uso: class="u-truncate"
  */

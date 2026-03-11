@@ -13,17 +13,20 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     ref,
   ) => {
     const isDisabled = Boolean(disabled || loading);
-    const selectClasses = clsx("c-select", { "is-invalid": invalid, "is-loading": loading }, className);
+    const selectClasses = clsx("c-select", { "is-invalid": invalid, "is-loading": loading });
+    const wrapperClasses = clsx("c-select-wrapper", className);
 
     return (
-      <select
-        ref={ref}
-        aria-invalid={invalid || undefined}
-        aria-busy={loading || undefined}
-        disabled={isDisabled}
-        className={selectClasses}
-        {...props}
-      />
+      <div className={wrapperClasses}>
+        <select
+          ref={ref}
+          aria-invalid={invalid || undefined}
+          aria-busy={loading || undefined}
+          disabled={isDisabled}
+          className={selectClasses}
+          {...props}
+        />
+      </div>
     );
   },
 );
