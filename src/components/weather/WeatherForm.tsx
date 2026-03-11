@@ -2,6 +2,7 @@ import Button from "@/components/ui/Button";
 import Form from "@/components/ui/Form";
 import Input from "@/components/ui/Input";
 import type { SyntheticEvent } from "react";
+import { useIntl } from "react-intl";
 
 interface WeatherFormProps {
   city: string;
@@ -16,6 +17,8 @@ const WeatherForm = ({
   onCityChange,
   onSubmit,
 }: WeatherFormProps) => {
+  const intl = useIntl();
+
   return (
     <Form action="#" onSubmit={onSubmit} className="c-weather-form">
       <Input
@@ -24,7 +27,10 @@ const WeatherForm = ({
         type="text"
         value={city}
         name="city"
-        placeholder="City or City, Country (e.g. Madrid, Spain)"
+        placeholder={intl.formatMessage({
+          id: "weatherForm.placeholder",
+          defaultMessage: "City or City, Country (e.g. Madrid, Spain)",
+        })}
         onChange={(event) => onCityChange(event.target.value)}
         disabled={isLoading}
         loading={isLoading}
@@ -36,7 +42,15 @@ const WeatherForm = ({
         loading={isLoading}
         className="c-weather-form__submit u-focus-ring"
       >
-        {isLoading ? "Loading..." : "Search"}
+        {isLoading
+          ? intl.formatMessage({
+              id: "weatherForm.loading",
+              defaultMessage: "Loading...",
+            })
+          : intl.formatMessage({
+              id: "weatherForm.search",
+              defaultMessage: "Search",
+            })}
       </Button>
     </Form>
   );

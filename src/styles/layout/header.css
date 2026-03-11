@@ -13,6 +13,25 @@
     padding-block: clamp(1.75rem, 4vw, 2.75rem);
   }
 
+  .c-app-header__language {
+    justify-self: end;
+  }
+
+  .c-app-header__language-select {
+    border: 1px solid rgb(255 255 255 / 0.35);
+    border-radius: var(--radius-sm);
+    background: rgb(255 255 255 / 0.12);
+    color: var(--color-on-primary);
+    padding-block: var(--space-1);
+    padding-inline: var(--space-2);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+  }
+
+  .c-app-header__language-select option {
+    color: var(--color-text);
+  }
+
   .c-app-header__theme-switch {
     justify-self: end;
     border: 1px solid rgb(255 255 255 / 0.35);

@@ -6,10 +6,13 @@ import { validateCity } from "@/lib/city-validation";
 import { fetchWeatherByCity, WeatherRequestError } from "@/lib/weather-service";
 import type { Weather } from "@/types/weather-interface";
 import { useState } from "react";
+import { useIntl } from "react-intl";
 
 type UiStatus = "idle" | "loading" | "success" | "error";
 
 const App = () => {
+  const intl = useIntl();
+
   // 1) Estado de entrada del formulario.
   const [city, setCity] = useState<string>("");
 
@@ -33,12 +36,12 @@ const App = () => {
     e.preventDefault();
 
     // B) Normaliza y valida la ciudad escrita por el usuario.
-    const { normalizedCity, error: validationError } = validateCity(city);
+    const { normalizedCity, errorKey } = validateCity(city);
 
-    if (validationError) {
+    if (errorKey) {
       // B.1) Si falla validacion, no llamamos a la API.
       setUiStatus("error");
-      setErrorMessage(validationError);
+      setErrorMessage(intl.formatMessage({ id: errorKey }));
       setWeatherData(null);
       return;
     }
@@ -61,11 +64,29 @@ const App = () => {
       setWeatherData(null);
 
       if (error instanceof WeatherRequestError) {
-        setErrorMessage(error.message);
+        setErrorMessage(
+          intl.formatMessage(
+            { id: error.messageKey, defaultMessage: error.message },
+            error.messageValues,
+          ),
+        );
       } else if (error instanceof Error) {
-        setErrorMessage(`Error fetching weather: ${error.message}`);
+        setErrorMessage(
+          intl.formatMessage(
+            {
+              id: "errors.fetchGeneric",
+              defaultMessage: "Error fetching weather: {message}",
+            },
+            { message: error.message },
+          ),
+        );
       } else {
-        setErrorMessage("Unknown error while fetching weather.");
+        setErrorMessage(
+          intl.formatMessage({
+            id: "errors.unknown",
+            defaultMessage: "Unknown error while fetching weather.",
+          }),
+        );
       }
     }
   };
@@ -94,8 +115,14 @@ const App = () => {
   return (
     <div className="c-app-shell">
       <Header
-        title="Busqueda de Clima"
-        subtitle="Ingresa una ciudad para obtener informacion del clima en tiempo real"
+        title={intl.formatMessage({
+          id: "app.title",
+          defaultMessage: "Weather Search",
+        })}
+        subtitle={intl.formatMessage({
+          id: "app.subtitle",
+          defaultMessage: "Enter a city to get real-time weather information",
+        })}
       />
 
       <main className="u-container c-app-main">

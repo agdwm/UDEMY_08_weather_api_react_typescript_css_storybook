@@ -19,11 +19,20 @@ const INVALID_API_KEY_CODES = new Set([1002, 2006]);
 
 export class WeatherRequestError extends Error {
   kind: WeatherErrorKind;
+  messageKey: string;
+  messageValues?: Record<string, string | number>;
 
-  constructor(kind: WeatherErrorKind, message: string) {
+  constructor(
+    kind: WeatherErrorKind,
+    messageKey: string,
+    message: string,
+    messageValues?: Record<string, string | number>,
+  ) {
     super(message);
     this.name = "WeatherRequestError";
     this.kind = kind;
+    this.messageKey = messageKey;
+    this.messageValues = messageValues;
   }
 }
 
@@ -47,6 +56,7 @@ const mapApiErrorToDomainError = (
   if (apiCode === CITY_NOT_FOUND_CODE || response.status === 404) {
     return new WeatherRequestError(
       "city_not_found",
+      "errors.cityNotFound",
       "No hemos encontrado esa ciudad. Revisa el nombre e intentalo de nuevo.",
     );
   }
@@ -54,14 +64,19 @@ const mapApiErrorToDomainError = (
   if (apiCode !== undefined && INVALID_API_KEY_CODES.has(apiCode)) {
     return new WeatherRequestError(
       "invalid_api_key",
+      "errors.invalidApiKey",
       "La API key no es valida o no esta configurada correctamente.",
     );
   }
 
   return new WeatherRequestError(
     "unknown",
+    apiErrorData?.error?.message ? "errors.apiMessage" : "errors.fetchFailed",
     apiErrorData?.error?.message ??
       `No se pudo obtener el clima (${response.status} ${response.statusText}).`,
+    apiErrorData?.error?.message
+      ? { message: apiErrorData.error.message }
+      : { statusInfo: `${response.status} ${response.statusText}` },
   );
 };
 
@@ -76,12 +91,14 @@ export const fetchWeatherByCity = async (city: string): Promise<Weather> => {
     if (error instanceof TypeError) {
       throw new WeatherRequestError(
         "network",
+        "errors.network",
         "No hay conexion con el servicio. Comprueba tu red e intentalo otra vez.",
       );
     }
 
     throw new WeatherRequestError(
       "unknown",
+      "errors.unexpectedConnection",
       "Ha ocurrido un error inesperado al conectar con el servicio.",
     );
   }

@@ -1,5 +1,6 @@
 import Button from "@/components/ui/Button";
 import { useEffect, useRef } from "react";
+import { useIntl } from "react-intl";
 
 interface ErrorMessageProps {
   message: string;
@@ -7,6 +8,7 @@ interface ErrorMessageProps {
 }
 
 const ErrorMessage = ({ message, onDismiss }: ErrorMessageProps) => {
+  const intl = useIntl();
   const alertRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -32,7 +34,13 @@ const ErrorMessage = ({ message, onDismiss }: ErrorMessageProps) => {
         <Button
           className="c-error-message__dismiss u-focus-ring"
           onClick={onDismiss}
-          aria-label={`Dismiss error: ${message}`}
+          aria-label={intl.formatMessage(
+            {
+              id: "error.dismiss",
+              defaultMessage: "Dismiss error: {message}",
+            },
+            { message },
+          )}
           type="button"
         >
           x

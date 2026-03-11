@@ -1,33 +1,48 @@
 import WeatherCard from "@/components/weather/WeatherCard";
 import type { Weather } from "@/types/weather-interface";
+import { useIntl } from "react-intl";
 
 interface WeatherResultProps {
   data: Weather;
 }
 
 const WeatherResult = ({ data }: WeatherResultProps) => {
+  const intl = useIntl();
+
   const iconUrl = data.current.condition.icon.startsWith("//")
     ? `https:${data.current.condition.icon}`
     : data.current.condition.icon;
 
   const metricCards = [
     {
-      title: "Viento",
+      title: intl.formatMessage({
+        id: "weatherResult.wind",
+        defaultMessage: "Wind",
+      }),
       values: [
         `${Math.round(data.current.wind_kph)} km/h`,
         data.current.wind_dir,
       ],
     },
     {
-      title: "Humedad",
+      title: intl.formatMessage({
+        id: "weatherResult.humidity",
+        defaultMessage: "Humidity",
+      }),
       values: [`${data.current.humidity}%`],
     },
     {
-      title: "Presion",
+      title: intl.formatMessage({
+        id: "weatherResult.pressure",
+        defaultMessage: "Pressure",
+      }),
       values: [`${Math.round(data.current.pressure_mb)} mb`],
     },
     {
-      title: "Visibilidad",
+      title: intl.formatMessage({
+        id: "weatherResult.visibility",
+        defaultMessage: "Visibility",
+      }),
       values: [`${Math.round(data.current.vis_km)} km`],
     },
   ];
@@ -55,7 +70,11 @@ const WeatherResult = ({ data }: WeatherResultProps) => {
             {Math.round(data.current.temp_c)}º C
           </p>
           <p className="c-weather-card__subtitle">
-            Sensacion termica: {Math.round(data.current.feelslike_c)}º C
+            {intl.formatMessage({
+              id: "weatherResult.feelsLike",
+              defaultMessage: "Feels like",
+            })}
+            : {Math.round(data.current.feelslike_c)}º C
           </p>
         </WeatherCard>
 
