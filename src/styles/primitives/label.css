@@ -1,0 +1,16 @@
+@layer components {
+  /* Reusable label base */
+  .c-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: 500;
+    cursor: default;
+  }
+
+  .c-label__required {
+    color: var(--color-error, var(--color-danger));
+    font-weight: 700;
+    line-height: 1;
+  }
+}

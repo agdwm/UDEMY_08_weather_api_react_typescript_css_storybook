@@ -1,3 +1,5 @@
+import Label from "@/components/ui/Label";
+import Select from "@/components/ui/Select";
 import Switch from "@/components/ui/Switch";
 import { useTheme } from "@/lib/use-theme";
 import { useI18n } from "@/lib/use-i18n";
@@ -15,6 +17,11 @@ const Header = ({ title, subtitle }: HeaderProps) => {
   const { locale, setLocale } = useI18n();
   const isDarkMode = themeMode === "dark";
 
+  const localeOptions = [
+    { value: "es", id: "language.es", defaultMessage: "Spanish" },
+    { value: "en", id: "language.en", defaultMessage: "English" },
+  ] as const;
+
   const handleLocaleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = event.target.value;
 
@@ -26,7 +33,7 @@ const Header = ({ title, subtitle }: HeaderProps) => {
   return (
     <header className="c-app-header">
       <div className="u-container c-app-header__inner">
-        <label
+        <Label
           className="c-app-header__language"
           htmlFor="header-language-select"
         >
@@ -36,7 +43,7 @@ const Header = ({ title, subtitle }: HeaderProps) => {
               defaultMessage: "Language",
             })}
           </span>
-          <select
+          <Select
             id="header-language-select"
             className="c-app-header__language-select u-focus-ring"
             value={locale}
@@ -46,20 +53,13 @@ const Header = ({ title, subtitle }: HeaderProps) => {
               defaultMessage: "Language",
             })}
           >
-            <option value="es">
-              {intl.formatMessage({
-                id: "language.es",
-                defaultMessage: "Spanish",
-              })}
-            </option>
-            <option value="en">
-              {intl.formatMessage({
-                id: "language.en",
-                defaultMessage: "English",
-              })}
-            </option>
-          </select>
-        </label>
+            {localeOptions.map(({ value, id, defaultMessage }) => (
+              <option key={value} value={value}>
+                {intl.formatMessage({ id, defaultMessage })}
+              </option>
+            ))}
+          </Select>
+        </Label>
         <Switch
           checked={isDarkMode}
           onCheckedChange={toggleTheme}
