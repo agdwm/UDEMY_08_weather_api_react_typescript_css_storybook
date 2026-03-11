@@ -13,12 +13,7 @@ const Alert = ({ error, isPending, onDismissError }: AlertProps) => {
   }
 
   return (
-    <div
-      className="c-alert-region"
-      role="region"
-      aria-live="polite"
-      aria-atomic="true"
-    >
+    <div className="c-alert-region">
       {error ? (
         <ErrorMessage message={error} onDismiss={onDismissError} />
       ) : (

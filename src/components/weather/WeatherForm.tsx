@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import Form from "@/components/ui/Form";
 import Input from "@/components/ui/Input";
+import Label from "@/components/ui/Label";
 import type { SyntheticEvent } from "react";
 import { useIntl } from "react-intl";
 
@@ -21,6 +22,12 @@ const WeatherForm = ({
 
   return (
     <Form action="#" onSubmit={onSubmit} className="c-weather-form">
+      <Label htmlFor="input-city" className="u-visually-hidden">
+        {intl.formatMessage({
+          id: "weatherForm.cityLabel",
+          defaultMessage: "City",
+        })}
+      </Label>
       <Input
         className="c-weather-form__input u-focus-ring"
         id="input-city"

@@ -7,6 +7,7 @@
   "language.label": "Language",
   "language.es": "Spanish",
   "language.en": "English",
+  "weatherForm.cityLabel": "City",
   "weatherForm.placeholder": "City or City, Country (e.g. Madrid, Spain)",
   "weatherForm.search": "Search",
   "weatherForm.loading": "Loading...",

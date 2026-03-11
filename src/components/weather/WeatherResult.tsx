@@ -48,10 +48,14 @@ const WeatherResult = ({ data }: WeatherResultProps) => {
   ];
 
   return (
-    <article className="c-weather-result" aria-live="polite">
-      <h3 className="c-weather-result__city">
+    <article
+      className="c-weather-result"
+      aria-live="polite"
+      aria-labelledby="weather-result-city"
+    >
+      <h2 id="weather-result-city" className="c-weather-result__city">
         {data.location.name}, {data.location.country}
-      </h3>
+      </h2>
 
       <div className="c-weather-result__cards">
         <WeatherCard className="c-weather-card--condition">
