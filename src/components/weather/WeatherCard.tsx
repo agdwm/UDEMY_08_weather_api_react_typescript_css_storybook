@@ -18,7 +18,7 @@ const WeatherCard = ({
   const weatherCardClasses = clsx("c-weather-card", className);
 
   return (
-    <Card as="section" className={weatherCardClasses}>
+    <Card as="div" className={weatherCardClasses}>
       {children ? (
         children
       ) : (
