@@ -1,4 +1,5 @@
 @layer components {
+  /* Weather form layout and control states */
   .c-weather-form {
     --weather-form-control-height: 3rem;
     --weather-form-control-padding-inline: var(--space-4);
@@ -89,6 +90,7 @@
   }
 
   @supports (color: color-mix(in srgb, black, white)) {
+    /* Progressive enhancement for focus/invalid ring colors */
     .c-weather-form:has(#input-city:focus-visible) {
       border-color: color-mix(
         in srgb,

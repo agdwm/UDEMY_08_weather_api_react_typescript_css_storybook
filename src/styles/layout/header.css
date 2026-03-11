@@ -1,9 +1,11 @@
 @layer components {
+  /* Header surface */
   .c-app-header {
     background: var(--gradient-primary);
     color: var(--color-on-primary);
   }
 
+  /* Header layout and typography */
   .c-app-header__inner {
     display: grid;
     gap: var(--space-2);

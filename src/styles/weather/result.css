@@ -1,4 +1,5 @@
 @layer components {
+  /* Weather result and weather card layout */
   .c-weather-result {
     margin-block-start: clamp(1.5rem, 3.5vw, 2rem);
     display: grid;
@@ -69,6 +70,7 @@
   }
 
   @scope (.c-weather-result) {
+    /* Scoped container-query variant */
     :scope {
       container-type: inline-size;
       container-name: weather-result;

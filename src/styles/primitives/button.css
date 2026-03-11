@@ -1,4 +1,5 @@
 @layer components {
+  /* Reusable button base */
   .c-btn {
     display: inline-flex;
     align-items: center;

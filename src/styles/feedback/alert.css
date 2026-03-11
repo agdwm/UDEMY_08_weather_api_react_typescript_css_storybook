@@ -1,8 +1,10 @@
 @layer components {
+  /* Alert wrapper spacing */
   .c-alert-region {
     margin-block-start: var(--space-3);
   }
 
+  /* Shared alert base for loading and error */
   .c-error-message,
   .c-loading-message {
     border: 1px solid var(--color-border);

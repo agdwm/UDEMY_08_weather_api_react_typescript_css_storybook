@@ -1,4 +1,5 @@
 @layer components {
+  /* Error message container and content */
   .c-error-message {
     display: flex;
     align-items: center;
@@ -44,6 +45,7 @@
   }
 
   @supports (color: color-mix(in srgb, black, white)) {
+    /* Progressive enhancement for error surface colors */
     .c-error-message {
       background: color-mix(in srgb, var(--color-danger) 10%, var(--color-bg));
       border-color: color-mix(
