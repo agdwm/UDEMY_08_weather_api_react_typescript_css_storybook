@@ -1,0 +1,9 @@
+@layer components {
+  /* Reusable input base */
+  .c-input {
+    min-inline-size: 0;
+    inline-size: 100%;
+    font: inherit;
+    color: inherit;
+  }
+}

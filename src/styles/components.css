@@ -4,6 +4,7 @@
 
 /* Primitives */
 @import "./primitives/card.css";
+@import "./primitives/input.css";
 @import "./primitives/button.css";
 
 /* Feedback */
