@@ -187,7 +187,7 @@
     --weather-form-control-line-height: 1.2;
 
     display: grid;
-    gap: var(--space-3);
+    gap: clamp(var(--space-3), 2vw, var(--space-4));
     border: 1px solid transparent;
     border-radius: var(--radius-md);
     transition:
@@ -200,11 +200,11 @@
     padding-block: 0;
     padding-inline: var(--weather-form-control-padding-inline);
     line-height: var(--weather-form-control-line-height);
+    border-radius: var(--radius-sm);
   }
 
   .c-weather-form__input {
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
     background: var(--color-bg);
     color: var(--color-text);
     transition:
@@ -225,7 +225,6 @@
   .c-weather-form__submit {
     justify-content: center;
     border: none;
-    border-radius: var(--radius-sm);
     background: var(--gradient-primary);
     color: var(--color-on-primary);
     transition:
