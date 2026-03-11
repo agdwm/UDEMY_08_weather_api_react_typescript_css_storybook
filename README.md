@@ -1,3 +1,27 @@
+## Variables sensibles y CI/CD
+
+Para mantener seguras y accesibles las variables sensibles (como API keys) en todo el equipo y en CI/CD:
+
+- Guarda las variables en GitHub Secrets (Settings > Secrets and variables > Actions).
+- En los workflows de GitHub Actions, inyecta los secrets como variables de entorno (ejemplo: `env: VITE_WEATHER_API_KEY: ${{ secrets.VITE_WEATHER_API_KEY }}`).
+- Vite expone las variables como `import.meta.env.VITE_WEATHER_API_KEY`, que se centralizan y validan en `src/lib/env.ts`.
+- Los componentes y servicios deben importar las variables desde `env.ts`, nunca directamente desde `import.meta.env`.
+- Así evitas exponer claves en el código, las mantienes seguras y no las pierdes al borrar o migrar el proyecto.
+
+Ejemplo de uso en workflow:
+
+```yaml
+env:
+  VITE_WEATHER_API_KEY: ${{ secrets.VITE_WEATHER_API_KEY }}
+```
+
+Ejemplo de uso en código:
+
+```ts
+import { env } from "@/lib/env";
+const apiKey = env.apiKey;
+```
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
