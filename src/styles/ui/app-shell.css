@@ -1,0 +1,10 @@
+@layer components {
+  .c-app-shell {
+    min-block-size: 100dvb;
+    background: var(--color-bg);
+  }
+
+  .c-app-main {
+    padding-block: clamp(1.25rem, 2.6vw, 2rem);
+  }
+}

@@ -1,0 +1,20 @@
+@layer components {
+  .c-alert-region {
+    margin-block-start: var(--space-3);
+  }
+
+  .c-error-message,
+  .c-loading-message {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding-block: var(--space-3);
+    padding-inline: var(--space-4);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
+  }
+
+  :is(.c-loading-message__icon, .c-error-message__icon) {
+    font-family: var(--font-mono);
+    font-weight: 700;
+  }
+}

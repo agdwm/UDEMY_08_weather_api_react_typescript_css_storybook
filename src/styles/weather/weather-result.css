@@ -1,0 +1,142 @@
+@layer components {
+  .c-weather-result {
+    margin-block-start: clamp(1.5rem, 3.5vw, 2rem);
+    display: grid;
+    gap: clamp(0.75rem, 2vw, 1rem);
+
+    & .c-weather-result__city {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    & .c-weather-result__cards {
+      /* Base mobile-first: una sola columna por defecto. */
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(0.75rem, 2vw, 1rem);
+    }
+
+    & .c-weather-card {
+      min-height: 8.5rem;
+      display: grid;
+      align-content: start;
+      gap: var(--space-2);
+
+      &
+        :is(
+          .c-weather-card__title,
+          .c-weather-card__heading,
+          .c-weather-card__temp
+        ) {
+        font-weight: 600;
+      }
+
+      &
+        :is(
+          .c-weather-card__title,
+          .c-weather-card__heading,
+          .c-weather-card__value,
+          .c-weather-card__subtitle
+        ) {
+        font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
+      }
+
+      & .c-weather-card__temp {
+        color: var(--color-primary);
+        font-size: clamp(2.25rem, 7vw, 2.75rem);
+        line-height: 1;
+      }
+
+      &.c-weather-card--condition img {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      & :where(.c-weather-card__subtitle, .c-weather-card__value) {
+        color: var(--color-text);
+      }
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .c-weather-result {
+      /* Desktop fallback sin container queries: dos columnas desde 48rem. */
+      & .c-weather-result__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+
+  @scope (.c-weather-result) {
+    :scope {
+      container-type: inline-size;
+      container-name: weather-result;
+    }
+
+    .c-weather-result__city {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .c-weather-result__cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(0.75rem, 2vw, 1rem);
+    }
+
+    .c-weather-card {
+      min-height: 8.5rem;
+      display: grid;
+      align-content: start;
+      gap: var(--space-2);
+
+      &
+        :is(
+          .c-weather-card__title,
+          .c-weather-card__heading,
+          .c-weather-card__temp
+        ) {
+        font-weight: 600;
+      }
+
+      &
+        :is(
+          .c-weather-card__title,
+          .c-weather-card__heading,
+          .c-weather-card__value,
+          .c-weather-card__subtitle
+        ) {
+        font-size: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);
+      }
+
+      & .c-weather-card__temp {
+        font-size: clamp(2.25rem, 8cqi, 2.75rem);
+      }
+
+      &.c-weather-card--condition img {
+        width: 4rem;
+        height: 4rem;
+      }
+
+      & :where(.c-weather-card__subtitle, .c-weather-card__value) {
+        color: var(--color-text);
+      }
+    }
+
+    @container weather-result (min-width: 48rem) {
+      /* Variante basada en contenedor: mantiene dos columnas cuando el contenedor lo permite. */
+      .c-weather-result__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  }
+
+  @supports not (container-type: inline-size) {
+    .c-weather-result {
+      container-type: normal;
+      container-name: none;
+    }
+  }
+}

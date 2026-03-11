@@ -1,0 +1,114 @@
+@layer components {
+  .c-weather-form {
+    --weather-form-control-height: 3rem;
+    --weather-form-control-padding-inline: var(--space-4);
+    --weather-form-control-line-height: 1.2;
+
+    display: grid;
+    gap: clamp(var(--space-3), 2vw, var(--space-4));
+    /* Reserva el grosor del borde para evitar saltos visuales cuando cambia de color por estado (accesibilidad) */
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .c-weather-form :is(.c-weather-form__input, .c-weather-form__submit) {
+    block-size: var(--weather-form-control-height);
+    padding-block: 0;
+    padding-inline: var(--weather-form-control-padding-inline);
+    line-height: var(--weather-form-control-line-height);
+    border-radius: var(--radius-sm);
+  }
+
+  .c-weather-form__input {
+    border: 1px solid var(--color-border);
+    background: var(--color-bg);
+    color: var(--color-text);
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      background-color var(--transition-fast);
+  }
+
+  .c-weather-form__input::placeholder {
+    color: var(--color-muted);
+  }
+
+  .c-weather-form__input:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+  }
+
+  .c-weather-form__submit {
+    justify-content: center;
+    border: none;
+    background: var(--gradient-primary);
+    color: var(--color-on-primary);
+    transition:
+      filter var(--transition-fast),
+      transform var(--transition-fast),
+      opacity var(--transition-fast);
+  }
+
+  .c-weather-form__submit:not(:disabled):hover {
+    filter: brightness(1.06);
+  }
+
+  .c-weather-form__submit:not(:disabled):active {
+    transform: translateY(1px);
+  }
+
+  .c-weather-form__submit:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+
+  @media (min-width: 48rem) {
+    .c-weather-form {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      column-gap: var(--space-2);
+    }
+  }
+
+  @supports selector(.c-weather-form:has(input)) {
+    /* Mantener indicador visible de foco para navegacion con teclado (accesibilidad). */
+    .c-weather-form:has(#input-city:focus-visible) {
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px var(--color-ring-primary);
+    }
+
+    .c-weather-form:has(#input-city:invalid):not(
+        :has(#input-city:placeholder-shown)
+      ) {
+      border-color: var(--color-danger);
+      box-shadow: 0 0 0 3px var(--color-ring-danger);
+    }
+  }
+
+  @supports (color: color-mix(in srgb, black, white)) {
+    .c-weather-form:has(#input-city:focus-visible) {
+      border-color: color-mix(
+        in srgb,
+        var(--color-primary) 45%,
+        var(--color-border)
+      );
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-primary) 22%, transparent);
+    }
+
+    .c-weather-form:has(#input-city:invalid):not(
+        :has(#input-city:placeholder-shown)
+      ) {
+      border-color: color-mix(
+        in srgb,
+        var(--color-danger) 55%,
+        var(--color-border)
+      );
+      box-shadow: 0 0 0 3px
+        color-mix(in srgb, var(--color-danger) 18%, transparent);
+    }
+  }
+}
