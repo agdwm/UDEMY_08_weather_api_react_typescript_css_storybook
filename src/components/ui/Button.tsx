@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
@@ -19,7 +20,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const isDisabled = Boolean(disabled || loading);
-    const loadingClassName = loading ? "is-loading" : "";
+    const btnClasses = clsx("c-btn", { "is-loading": loading }, className);
 
     return (
       <button
@@ -27,7 +28,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         disabled={isDisabled}
         aria-busy={loading || undefined}
-        className={`c-btn ${loadingClassName} ${className}`.trim()}
+        className={btnClasses}
         {...props}
       >
         {children}

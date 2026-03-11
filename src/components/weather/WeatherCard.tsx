@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import Card from "@/components/ui/Card";
 import type { ReactNode } from "react";
 
@@ -14,8 +15,10 @@ const WeatherCard = ({
   className = "",
   children,
 }: WeatherCardProps) => {
+  const weatherCardClasses = clsx("c-weather-card", className);
+
   return (
-    <Card as="section" className={`c-weather-card ${className}`.trim()}>
+    <Card as="section" className={weatherCardClasses}>
       {children ? (
         children
       ) : (

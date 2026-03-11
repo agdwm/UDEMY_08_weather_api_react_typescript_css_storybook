@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import type { ElementType, ReactNode } from "react";
 
 interface CardProps {
@@ -11,8 +12,10 @@ const Card = ({
   className = "",
   children,
 }: CardProps) => {
+  const cardClasses = clsx("c-card", className);
+
   return (
-    <Component className={`c-card ${className}`.trim()}>{children}</Component>
+    <Component className={cardClasses}>{children}</Component>
   );
 };
 

@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 import type { SelectHTMLAttributes } from "react";
 
@@ -12,8 +13,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
     ref,
   ) => {
     const isDisabled = Boolean(disabled || loading);
-    const invalidClassName = invalid ? "is-invalid" : "";
-    const loadingClassName = loading ? "is-loading" : "";
+    const selectClasses = clsx("c-select", { "is-invalid": invalid, "is-loading": loading }, className);
 
     return (
       <select
@@ -21,7 +21,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         aria-invalid={invalid || undefined}
         aria-busy={loading || undefined}
         disabled={isDisabled}
-        className={`c-select ${invalidClassName} ${loadingClassName} ${className}`.trim()}
+        className={selectClasses}
         {...props}
       />
     );

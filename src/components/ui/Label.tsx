@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 import type { LabelHTMLAttributes } from "react";
 
@@ -7,12 +8,12 @@ interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
 
 const Label = forwardRef<HTMLLabelElement, LabelProps>(
   ({ className = "", required = false, children, ...props }, ref) => {
-    const requiredClassName = required ? "is-required" : "";
+    const labelClasses = clsx("c-label", { "is-required": required }, className);
 
     return (
       <label
         ref={ref}
-        className={`c-label ${requiredClassName} ${className}`.trim()}
+        className={labelClasses}
         {...props}
       >
         {children}

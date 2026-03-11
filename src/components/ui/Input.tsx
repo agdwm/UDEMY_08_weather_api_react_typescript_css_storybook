@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 import type { InputHTMLAttributes } from "react";
 
@@ -8,12 +9,18 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
   (
-    { className = "", type = "text", invalid = false, loading = false, disabled, ...props },
+    {
+      className = "",
+      type = "text",
+      invalid = false,
+      loading = false,
+      disabled,
+      ...props
+    },
     ref,
   ) => {
     const isDisabled = Boolean(disabled || loading);
-    const invalidClassName = invalid ? "is-invalid" : "";
-    const loadingClassName = loading ? "is-loading" : "";
+    const inputClasses = clsx("c-input", { "is-invalid": invalid, "is-loading": loading }, className);
 
     return (
       <input
@@ -22,7 +29,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         aria-invalid={invalid || undefined}
         aria-busy={loading || undefined}
         disabled={isDisabled}
-        className={`c-input ${invalidClassName} ${loadingClassName} ${className}`.trim()}
+        className={inputClasses}
         {...props}
       />
     );

@@ -1,11 +1,11 @@
+import { clsx } from "clsx";
 import { forwardRef } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
-interface SwitchProps
-  extends Omit<
-    ButtonHTMLAttributes<HTMLButtonElement>,
-    "role" | "aria-checked" | "children"
-  > {
+interface SwitchProps extends Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  "role" | "aria-checked" | "children"
+> {
   checked: boolean;
   onCheckedChange?: (checked: boolean) => void;
   onIcon?: ReactNode;
@@ -28,8 +28,6 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
     },
     ref,
   ) => {
-    const checkedClassName = checked ? "is-checked" : "";
-
     const handleClick: ButtonHTMLAttributes<HTMLButtonElement>["onClick"] = (
       event,
     ) => {
@@ -40,13 +38,15 @@ const Switch = forwardRef<HTMLButtonElement, SwitchProps>(
       }
     };
 
+    const switchClasses = clsx("c-switch", { "is-checked": checked }, className);
+
     return (
       <button
         ref={ref}
         type={type}
         role="switch"
         aria-checked={checked}
-        className={`c-switch ${checkedClassName} ${className}`.trim()}
+        className={switchClasses}
         onClick={handleClick}
         {...props}
       >
