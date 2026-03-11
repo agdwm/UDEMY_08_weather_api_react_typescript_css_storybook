@@ -1,12 +1,16 @@
-/* UI components */
-@import "./ui/app-shell.css";
-@import "./ui/header.css";
-@import "./ui/alert.css";
-@import "./ui/error-message.css";
-@import "./ui/loading-message.css";
-@import "./ui/card.css";
-@import "./ui/button.css";
+/* Layout */
+@import "./layout/shell.css";
+@import "./layout/header.css";
 
-/* Weather components */
-@import "./weather/weather-form.css";
-@import "./weather/weather-result.css";
+/* Primitives */
+@import "./primitives/card.css";
+@import "./primitives/button.css";
+
+/* Feedback */
+@import "./feedback/alert.css";
+@import "./feedback/error.css";
+@import "./feedback/loading.css";
+
+/* Weather */
+@import "./weather/form.css";
+@import "./weather/result.css";
