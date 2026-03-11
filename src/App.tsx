@@ -5,11 +5,28 @@ import WeatherResult from "@/components/weather/WeatherResult";
 import { validateCity } from "@/lib/city-validation";
 import { fetchWeatherByCity, WeatherRequestError } from "@/lib/weather-service";
 import type { Weather } from "@/types/weather-interface";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type UiStatus = "idle" | "loading" | "success" | "error";
+type ThemeMode = "light" | "dark";
+
+const THEME_STORAGE_KEY = "weather-app-theme";
+
+const getInitialThemeMode = (): ThemeMode => {
+  const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+  if (savedTheme === "light" || savedTheme === "dark") {
+    return savedTheme;
+  }
+
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
 
 const App = () => {
+  const [themeMode, setThemeMode] = useState<ThemeMode>(getInitialThemeMode);
+
   // 1) Estado de entrada del formulario.
   const [city, setCity] = useState<string>("");
 
@@ -21,6 +38,15 @@ const App = () => {
 
   // 4) Mensaje de error para validacion o fallo de red/API.
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", themeMode);
+    localStorage.setItem(THEME_STORAGE_KEY, themeMode);
+  }, [themeMode]);
+
+  const handleToggleTheme = () => {
+    setThemeMode((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
   // Flujo mental para memorizar:
   // A) prevenir submit por defecto
@@ -96,6 +122,8 @@ const App = () => {
       <Header
         title="Busqueda de Clima"
         subtitle="Ingresa una ciudad para obtener informacion del clima en tiempo real"
+        currentTheme={themeMode}
+        onToggleTheme={handleToggleTheme}
       />
 
       <main className="u-container c-app-main">
