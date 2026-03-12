@@ -29,5 +29,9 @@
   "errors.fetchFailed": "No se pudo obtener el clima ({statusInfo}).",
   "errors.apiMessage": "{message}",
   "errors.fetchGeneric": "Error obteniendo el clima: {message}",
-  "errors.unknown": "Error desconocido al obtener el clima."
+  "errors.unknown": "Error desconocido al obtener el clima.",
+  "alert.loading": "Cargando",
+  "alert.loadingMessage": "Obteniendo datos del clima...",
+  "alert.error": "Error",
+  "alert.close": "Cerrar alerta"
 }

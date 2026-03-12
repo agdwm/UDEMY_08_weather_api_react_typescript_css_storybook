@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { useIntl } from "react-intl";
 
 type AlertVariant = "info" | "success" | "warning" | "error";
 
@@ -108,6 +109,7 @@ export const Alert = ({
   className,
 }: AlertProps) => {
   const { icon, colorClass, role, ariaLive } = variantConfig[variant];
+  const intl = useIntl();
 
   return (
     <div
@@ -124,7 +126,7 @@ export const Alert = ({
         <button
           type="button"
           className="c-alert__close"
-          aria-label="Cerrar alerta"
+          aria-label={intl.formatMessage({ id: "alert.close", defaultMessage: "Close alert" })}
           onClick={onDismiss}
         >
           <svg
@@ -142,6 +144,7 @@ export const Alert = ({
       )}
     </div>
   );
+};
 };
 
 export default Alert;

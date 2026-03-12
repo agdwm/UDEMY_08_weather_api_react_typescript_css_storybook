@@ -8,129 +8,105 @@ import type { Weather } from "@/types/weather-interface";
 import { useState } from "react";
 import { useIntl } from "react-intl";
 
-type UiStatus = "idle" | "loading" | "success" | "error";
+type UiStatus = "idle" | "loading" | "success";
 
 const App = () => {
   const intl = useIntl();
 
-  // 1) Estado de entrada del formulario.
+  // Estado del input de ciudad
   const [city, setCity] = useState<string>("");
-
-  // 2) Estado de UI: controla que se renderiza (reposo, carga, exito o error).
+  // Estado de la UI: "idle", "loading" o "success"
   const [uiStatus, setUiStatus] = useState<UiStatus>("idle");
-
-  // 3) Dato de negocio cuando la peticion sale bien.
+  // Datos meteorológicos obtenidos
   const [weatherData, setWeatherData] = useState<Weather | null>(null);
-
-  // 4) Mensaje de error para validacion o fallo de red/API.
+  // Mensaje de error (si existe, hay error)
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Flujo mental para memorizar:
-  // A) prevenir submit por defecto
-  // B) validar entrada
-  // C) pasar a loading y limpiar estado previo
-  // D) pedir datos al servicio
-  // E) success con datos o error con mensaje
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
-    // A) Evita recarga de pagina al enviar el formulario.
+    // Previene recarga de página
     e.preventDefault();
 
-    // B) Normaliza y valida la ciudad escrita por el usuario.
+    // Valida la ciudad introducida
     const { normalizedCity, errorKey } = validateCity(city);
-
     if (errorKey) {
-      // B.1) Si falla validacion, no llamamos a la API.
-      setUiStatus("error");
       setErrorMessage(intl.formatMessage({ id: errorKey }));
       setWeatherData(null);
+      setUiStatus("idle");
       return;
     }
 
-    // C) Inicia una nueva busqueda: limpiamos error/datos anteriores y activamos loading.
+    // Inicia búsqueda: limpia estados previos y activa loading
     setUiStatus("loading");
     setErrorMessage(null);
     setWeatherData(null);
 
     try {
-      // D) Llamada al servicio desacoplado de la UI.
       const data = await fetchWeatherByCity(normalizedCity);
-
-      // E.1) Exito: guardamos datos y cambiamos el estado para renderizar resultado.
       setWeatherData(data);
       setUiStatus("success");
     } catch (error) {
-      // E.2) Error: mantenemos datos en null y mostramos mensaje.
-      setUiStatus("error");
       setWeatherData(null);
-
+      let message = "";
       if (error instanceof WeatherRequestError) {
-        setErrorMessage(
-          intl.formatMessage(
-            { id: error.messageKey, defaultMessage: error.message },
-            error.messageValues,
-          ),
+        message = intl.formatMessage(
+          { id: error.messageKey, defaultMessage: error.message },
+          error.messageValues,
         );
       } else if (error instanceof Error) {
-        setErrorMessage(
-          intl.formatMessage(
-            {
-              id: "errors.fetchGeneric",
-              defaultMessage: "Error fetching weather: {message}",
-            },
-            { message: error.message },
-          ),
+        message = intl.formatMessage(
+          {
+            id: "errors.fetchGeneric",
+            defaultMessage: "Error fetching weather: {message}",
+          },
+          { message: error.message },
         );
       } else {
-        setErrorMessage(
-          intl.formatMessage({
-            id: "errors.unknown",
-            defaultMessage: "Unknown error while fetching weather.",
-          }),
-        );
+        message = intl.formatMessage({
+          id: "errors.unknown",
+          defaultMessage: "Unknown error while fetching weather.",
+        });
       }
+      setErrorMessage(message);
+      setUiStatus("idle");
     }
   };
 
   const renderStatusContent = () => {
+    type AlertVariant = "info" | "success" | "warning" | "error";
+    let alertProps:
+      | (Omit<React.ComponentProps<typeof Alert>, "children"> & {
+          children: React.ReactNode;
+        })
+      | null = null;
     if (uiStatus === "loading") {
-      return (
-        <Alert
-          variant="info"
-          title={intl.formatMessage({
-            id: "alert.loading",
-            defaultMessage: "Loading",
-          })}
-          onDismiss={undefined}
-        >
-          {intl.formatMessage({
-            id: "alert.loadingMessage",
-            defaultMessage: "Fetching weather data...",
-          })}
-        </Alert>
-      );
+      alertProps = {
+        variant: "info" as AlertVariant,
+        title: intl.formatMessage({
+          id: "alert.loading",
+          defaultMessage: "Loading",
+        }),
+        children: intl.formatMessage({
+          id: "alert.loadingMessage",
+          defaultMessage: "Fetching weather data...",
+        }),
+      };
+    } else if (errorMessage) {
+      alertProps = {
+        variant: "error" as AlertVariant,
+        title: intl.formatMessage({
+          id: "alert.error",
+          defaultMessage: "Error",
+        }),
+        onDismiss: () => setErrorMessage(null),
+        children: errorMessage,
+      };
     }
-    if (uiStatus === "error") {
-      return (
-        <Alert
-          variant="error"
-          title={intl.formatMessage({
-            id: "alert.error",
-            defaultMessage: "Error",
-          })}
-          onDismiss={() => {
-            setErrorMessage(null);
-            setUiStatus("idle");
-          }}
-        >
-          {errorMessage}
-        </Alert>
-      );
+    if (alertProps) {
+      return <Alert {...alertProps}>{alertProps.children}</Alert>;
     }
-
     if (uiStatus === "success" && weatherData) {
       return <WeatherResult data={weatherData} />;
     }
-
     return null;
   };
 
@@ -155,7 +131,7 @@ const App = () => {
             onCityChange={setCity}
             onSubmit={handleSubmit}
           />
-          {/* Render por estado para reforzar el modelo mental de la UI */}
+          {/* Renderiza alertas o resultados según el estado actual */}
           {renderStatusContent()}
         </section>
       </main>

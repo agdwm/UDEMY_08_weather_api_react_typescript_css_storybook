@@ -1,6 +1,7 @@
 import Button from "@/components/ui/Button";
 import { useEffect, useRef } from "react";
 import { useIntl } from "react-intl";
+import { useDefaultMessage } from "@/lib/use-default-message";
 
 interface ErrorMessageProps {
   message: string;
@@ -37,7 +38,10 @@ const ErrorMessage = ({ message, onDismiss }: ErrorMessageProps) => {
           aria-label={intl.formatMessage(
             {
               id: "error.dismiss",
-              defaultMessage: "Dismiss error: {message}",
+              defaultMessage: useDefaultMessage(
+                "error.dismiss",
+                "Dismiss error: {message}",
+              ),
             },
             { message },
           )}

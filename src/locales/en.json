@@ -29,5 +29,9 @@
   "errors.fetchFailed": "Could not fetch weather ({statusInfo}).",
   "errors.apiMessage": "{message}",
   "errors.fetchGeneric": "Error fetching weather: {message}",
-  "errors.unknown": "Unknown error while fetching weather."
+  "errors.unknown": "Unknown error while fetching weather.",
+  "alert.loading": "Loading",
+  "alert.loadingMessage": "Fetching weather data...",
+  "alert.error": "Error",
+  "alert.close": "Close alert"
 }

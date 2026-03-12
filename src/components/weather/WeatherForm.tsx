@@ -4,6 +4,7 @@ import Input from "@/components/ui/Input";
 import Label from "@/components/ui/Label";
 import type { SyntheticEvent } from "react";
 import { useIntl } from "react-intl";
+import { useDefaultMessage } from "@/lib/use-default-message";
 
 interface WeatherFormProps {
   city: string;
@@ -20,13 +21,15 @@ const WeatherForm = ({
 }: WeatherFormProps) => {
   const intl = useIntl();
 
+  const cityLabel = useDefaultMessage("weatherForm.cityLabel", "City");
+  const placeholder = useDefaultMessage("weatherForm.placeholder", "City or City, Country (e.g. Madrid, Spain)");
+  const loadingText = useDefaultMessage("weatherForm.loading", "Loading...");
+  const searchText = useDefaultMessage("weatherForm.search", "Search");
+
   return (
     <Form action="#" onSubmit={onSubmit} className="c-weather-form">
       <Label htmlFor="input-city" className="u-visually-hidden">
-        {intl.formatMessage({
-          id: "weatherForm.cityLabel",
-          defaultMessage: "City",
-        })}
+        {intl.formatMessage({ id: "weatherForm.cityLabel", defaultMessage: cityLabel })}
       </Label>
       <Input
         className="c-weather-form__input u-focus-ring"
@@ -34,10 +37,7 @@ const WeatherForm = ({
         type="text"
         value={city}
         name="city"
-        placeholder={intl.formatMessage({
-          id: "weatherForm.placeholder",
-          defaultMessage: "City or City, Country (e.g. Madrid, Spain)",
-        })}
+        placeholder={intl.formatMessage({ id: "weatherForm.placeholder", defaultMessage: placeholder })}
         onChange={(event) => onCityChange(event.target.value)}
         disabled={isLoading}
         loading={isLoading}
@@ -50,14 +50,8 @@ const WeatherForm = ({
         className="c-weather-form__submit u-focus-ring"
       >
         {isLoading
-          ? intl.formatMessage({
-              id: "weatherForm.loading",
-              defaultMessage: "Loading...",
-            })
-          : intl.formatMessage({
-              id: "weatherForm.search",
-              defaultMessage: "Search",
-            })}
+          ? intl.formatMessage({ id: "weatherForm.loading", defaultMessage: loadingText })
+          : intl.formatMessage({ id: "weatherForm.search", defaultMessage: searchText })}
       </Button>
     </Form>
   );

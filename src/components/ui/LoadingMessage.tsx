@@ -1,4 +1,5 @@
 import { useIntl } from "react-intl";
+import { useDefaultMessage } from "@/lib/use-default-message";
 
 interface LoadingMessageProps {
   message?: string;
@@ -7,11 +8,12 @@ interface LoadingMessageProps {
 const LoadingMessage = ({ message }: LoadingMessageProps) => {
   const intl = useIntl();
 
+  const defaultLoading = useDefaultMessage("loading.default", "Loading...");
   const resolvedMessage =
     message ??
     intl.formatMessage({
       id: "loading.default",
-      defaultMessage: "Loading...",
+      defaultMessage: defaultLoading,
     });
 
   return (

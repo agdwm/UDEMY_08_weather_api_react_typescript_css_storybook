@@ -5,6 +5,7 @@ import { useTheme } from "@/lib/use-theme";
 import { useI18n } from "@/lib/use-i18n";
 import type { ChangeEvent } from "react";
 import { useIntl } from "react-intl";
+import { useDefaultMessage } from "@/lib/use-default-message";
 
 interface HeaderProps {
   title: string;
@@ -17,9 +18,11 @@ const Header = ({ title, subtitle }: HeaderProps) => {
   const { locale, setLocale } = useI18n();
   const isDarkMode = themeMode === "dark";
 
+  const spanishLabel = useDefaultMessage("language.es", "Spanish");
+  const englishLabel = useDefaultMessage("language.en", "English");
   const localeOptions = [
-    { value: "es", id: "language.es", defaultMessage: "Spanish" },
-    { value: "en", id: "language.en", defaultMessage: "English" },
+    { value: "es", id: "language.es", defaultMessage: spanishLabel },
+    { value: "en", id: "language.en", defaultMessage: englishLabel },
   ] as const;
 
   const handleLocaleChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -41,7 +44,7 @@ const Header = ({ title, subtitle }: HeaderProps) => {
             <span className="u-visually-hidden">
               {intl.formatMessage({
                 id: "language.label",
-                defaultMessage: "Language",
+                defaultMessage: useDefaultMessage("language.label", "Language"),
               })}
             </span>
 
@@ -52,7 +55,7 @@ const Header = ({ title, subtitle }: HeaderProps) => {
               onChange={handleLocaleChange}
               aria-label={intl.formatMessage({
                 id: "language.label",
-                defaultMessage: "Language",
+                defaultMessage: useDefaultMessage("language.label", "Language"),
               })}
             >
               {localeOptions.map(({ value, id, defaultMessage }) => (
@@ -68,7 +71,10 @@ const Header = ({ title, subtitle }: HeaderProps) => {
             className="c-app-header__theme-switch u-focus-ring"
             aria-label={intl.formatMessage({
               id: "theme.toggleLabel",
-              defaultMessage: "Toggle dark mode",
+              defaultMessage: useDefaultMessage(
+                "theme.toggleLabel",
+                "Toggle dark mode",
+              ),
             })}
             onIcon="🌙"
             offIcon="☀️"
@@ -76,11 +82,17 @@ const Header = ({ title, subtitle }: HeaderProps) => {
               isDarkMode
                 ? intl.formatMessage({
                     id: "theme.darkEnabled",
-                    defaultMessage: "Dark mode enabled",
+                    defaultMessage: useDefaultMessage(
+                      "theme.darkEnabled",
+                      "Dark mode enabled",
+                    ),
                   })
                 : intl.formatMessage({
                     id: "theme.lightEnabled",
-                    defaultMessage: "Light mode enabled",
+                    defaultMessage: useDefaultMessage(
+                      "theme.lightEnabled",
+                      "Light mode enabled",
+                    ),
                   })
             }
           />

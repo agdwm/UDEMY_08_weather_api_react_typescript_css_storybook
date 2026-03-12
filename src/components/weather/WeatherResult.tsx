@@ -1,6 +1,7 @@
 import WeatherCard from "@/components/weather/WeatherCard";
 import type { Weather } from "@/types/weather-interface";
 import { useIntl } from "react-intl";
+import { useDefaultMessage } from "@/lib/use-default-message";
 
 interface WeatherResultProps {
   data: Weather;
@@ -13,11 +14,19 @@ const WeatherResult = ({ data }: WeatherResultProps) => {
     ? `https:${data.current.condition.icon}`
     : data.current.condition.icon;
 
+  const windLabel = useDefaultMessage("weatherResult.wind", "Wind");
+  const humidityLabel = useDefaultMessage("weatherResult.humidity", "Humidity");
+  const pressureLabel = useDefaultMessage("weatherResult.pressure", "Pressure");
+  const visibilityLabel = useDefaultMessage(
+    "weatherResult.visibility",
+    "Visibility",
+  );
+
   const metricCards = [
     {
       title: intl.formatMessage({
         id: "weatherResult.wind",
-        defaultMessage: "Wind",
+        defaultMessage: windLabel,
       }),
       values: [
         `${Math.round(data.current.wind_kph)} km/h`,
@@ -27,21 +36,21 @@ const WeatherResult = ({ data }: WeatherResultProps) => {
     {
       title: intl.formatMessage({
         id: "weatherResult.humidity",
-        defaultMessage: "Humidity",
+        defaultMessage: humidityLabel,
       }),
       values: [`${data.current.humidity}%`],
     },
     {
       title: intl.formatMessage({
         id: "weatherResult.pressure",
-        defaultMessage: "Pressure",
+        defaultMessage: pressureLabel,
       }),
       values: [`${Math.round(data.current.pressure_mb)} mb`],
     },
     {
       title: intl.formatMessage({
         id: "weatherResult.visibility",
-        defaultMessage: "Visibility",
+        defaultMessage: visibilityLabel,
       }),
       values: [`${Math.round(data.current.vis_km)} km`],
     },
@@ -76,7 +85,10 @@ const WeatherResult = ({ data }: WeatherResultProps) => {
           <p className="c-weather-card__subtitle">
             {intl.formatMessage({
               id: "weatherResult.feelsLike",
-              defaultMessage: "Feels like",
+              defaultMessage: useDefaultMessage(
+                "weatherResult.feelsLike",
+                "Feels like",
+              ),
             })}
             : {Math.round(data.current.feelslike_c)}º C
           </p>
