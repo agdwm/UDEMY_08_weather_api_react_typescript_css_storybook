@@ -92,16 +92,38 @@ const App = () => {
   };
 
   const renderStatusContent = () => {
-    if (uiStatus === "loading" || uiStatus === "error") {
+    if (uiStatus === "loading") {
       return (
         <Alert
-          error={uiStatus === "error" ? errorMessage : null}
-          isPending={uiStatus === "loading"}
-          onDismissError={() => {
+          variant="info"
+          title={intl.formatMessage({
+            id: "alert.loading",
+            defaultMessage: "Loading",
+          })}
+          onDismiss={undefined}
+        >
+          {intl.formatMessage({
+            id: "alert.loadingMessage",
+            defaultMessage: "Fetching weather data...",
+          })}
+        </Alert>
+      );
+    }
+    if (uiStatus === "error") {
+      return (
+        <Alert
+          variant="error"
+          title={intl.formatMessage({
+            id: "alert.error",
+            defaultMessage: "Error",
+          })}
+          onDismiss={() => {
             setErrorMessage(null);
             setUiStatus("idle");
           }}
-        />
+        >
+          {errorMessage}
+        </Alert>
       );
     }
 
