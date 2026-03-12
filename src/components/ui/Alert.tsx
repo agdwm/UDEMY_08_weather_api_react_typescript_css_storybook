@@ -126,7 +126,10 @@ export const Alert = ({
         <button
           type="button"
           className="c-alert__close"
-          aria-label={intl.formatMessage({ id: "alert.close", defaultMessage: "Close alert" })}
+          aria-label={intl.formatMessage({
+            id: "alert.close",
+            defaultMessage: "Close alert",
+          })}
           onClick={onDismiss}
         >
           <svg
@@ -144,7 +147,6 @@ export const Alert = ({
       )}
     </div>
   );
-};
 };
 
 export default Alert;

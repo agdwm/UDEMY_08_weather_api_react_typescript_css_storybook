@@ -11,6 +11,10 @@ interface ErrorMessageProps {
 const ErrorMessage = ({ message, onDismiss }: ErrorMessageProps) => {
   const intl = useIntl();
   const alertRef = useRef<HTMLDivElement>(null);
+  const defaultDismiss = useDefaultMessage(
+    "error.dismiss",
+    "Dismiss error: {message}",
+  );
 
   useEffect(() => {
     alertRef.current?.focus();
@@ -38,10 +42,7 @@ const ErrorMessage = ({ message, onDismiss }: ErrorMessageProps) => {
           aria-label={intl.formatMessage(
             {
               id: "error.dismiss",
-              defaultMessage: useDefaultMessage(
-                "error.dismiss",
-                "Dismiss error: {message}",
-              ),
+              defaultMessage: defaultDismiss,
             },
             { message },
           )}
