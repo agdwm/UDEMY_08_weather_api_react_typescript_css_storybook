@@ -7,6 +7,7 @@
 
     display: grid;
     gap: clamp(var(--space-3), 2vw, var(--space-4));
+
     /* Reserva el grosor del borde para evitar saltos visuales cuando cambia de color por estado (accesibilidad) */
     border: 1px solid transparent;
     border-radius: var(--radius-sm);
@@ -19,8 +20,8 @@
     block-size: var(--weather-form-control-height);
     padding-block: 0;
     padding-inline: var(--weather-form-control-padding-inline);
-    line-height: var(--weather-form-control-line-height);
     border-radius: var(--radius-sm);
+    line-height: var(--weather-form-control-line-height);
   }
 
   .c-weather-form__input {
@@ -66,11 +67,11 @@
     cursor: not-allowed;
   }
 
-  @media (min-width: 48rem) {
+  @media (width >= 48rem) {
     .c-weather-form {
       grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
       column-gap: var(--space-2);
+      align-items: center;
     }
   }
 

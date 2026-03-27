@@ -2,14 +2,14 @@
   /* Reusable button base */
   .c-btn {
     display: inline-flex;
+    gap: var(--space-2);
     align-items: center;
     justify-content: center;
-    gap: var(--space-2);
     min-block-size: 3rem;
-    border: 1px solid transparent;
-    border-radius: var(--radius-md);
     padding-block: var(--space-4);
     padding-inline: var(--space-4);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
     font-weight: 600;
     cursor: pointer;
     transition:
@@ -23,13 +23,13 @@
 
   .c-btn:hover:not(:disabled) {
     filter: brightness(0.98);
-    transform: translateY(-1px);
     box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
   }
 
   .c-btn:active:not(:disabled) {
-    transform: translateY(0);
     filter: brightness(0.96);
+    transform: translateY(0);
   }
 
   .c-btn:focus-visible {
@@ -38,7 +38,7 @@
   }
 
   .c-btn:disabled {
-    cursor: not-allowed;
     opacity: 0.8;
+    cursor: not-allowed;
   }
 }

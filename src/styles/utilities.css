@@ -1,6 +1,9 @@
 /* ========================================== */
+
 /* UTILITIES                                  */
+
 /* Clases reutilizables de composición        */
+
 /* ========================================== */
 
 @layer utilities {
@@ -13,9 +16,9 @@
   .u-flex-center {
     display: flex;
     flex-direction: var(--flex-direction, row);
+    gap: var(--flex-gap, 0);
     align-items: center;
     justify-content: center;
-    gap: var(--flex-gap, 0);
   }
 
   /*
@@ -25,8 +28,8 @@
   .u-flex-row {
     display: flex;
     flex-direction: row;
-    align-items: center;
     gap: 1rem;
+    align-items: center;
   }
 
   /*
@@ -36,8 +39,8 @@
   .u-flex-column {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     gap: 0.5rem;
+    align-items: stretch;
   }
 
   /*
@@ -46,8 +49,8 @@
  */
   .u-truncate {
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   /*
@@ -69,6 +72,8 @@
     outline: none;
     box-shadow: 0 0 0 3px var(--focus-ring-color, var(--color-ring-primary));
   }
+
+
 
   /*
  * Contenedor centrado con ancho máximo para layout de página.
@@ -97,11 +102,11 @@
  * Superficie tipo tarjeta con fondo, borde, sombra y padding.
  */
   .u-card {
-    background: var(--color-bg);
+    padding: var(--space-4);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
+    background: var(--color-bg);
     box-shadow: var(--shadow-sm);
-    padding: var(--space-4);
   }
 
   /*
@@ -128,9 +133,9 @@
  */
   .u-inline {
     display: flex;
-    align-items: center;
     flex-wrap: wrap;
     gap: var(--inline-gap, var(--space-2));
+    align-items: center;
   }
 
   /*
@@ -139,13 +144,13 @@
  */
   .u-visually-hidden {
     position: absolute;
+    overflow: hidden;
+    clip-path: inset(50%);
     width: 1px;
     height: 1px;
-    padding: 0;
     margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
+    padding: 0;
     border: 0;
+    white-space: nowrap;
   }
 }

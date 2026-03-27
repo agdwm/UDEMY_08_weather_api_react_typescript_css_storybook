@@ -2,8 +2,8 @@
   /* Reusable label base */
   .c-label {
     display: inline-flex;
-    align-items: center;
     gap: var(--space-1);
+    align-items: center;
     font-weight: 500;
     cursor: default;
   }

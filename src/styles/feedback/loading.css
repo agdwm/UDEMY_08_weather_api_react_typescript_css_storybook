@@ -1,31 +1,35 @@
 @layer components {
   .c-loading-message {
     display: flex;
-    align-items: center;
     gap: var(--space-3);
-    padding: var(--space-4) var(--space-5);
-    border-radius: var(--radius-md);
-    font-size: var(--font-size-base);
-    background: var(--color-bg);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    box-shadow: 0 2px 8px 0 rgb(0 0 0 / 0.04);
+    align-items: center;
     margin-block: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    box-shadow: var(--box-shadow-sm);
+    color: var(--color-text);
+    font-size: var(--font-size-base);
   }
+
   .c-loading-message__spinner {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-primary, #1565c0);
+    color: var(--color-primary);
     font-size: var(--font-size-2xl);
     animation: c-loading-spin 0.8s linear infinite;
   }
+
   .c-loading-message__text {
     flex: 1 1 auto;
     min-width: 0;
     color: inherit;
-    word-break: break-word;
+word-break: normal;
+    overflow-wrap: break-word;
   }
+
   @keyframes c-loading-spin {
     100% {
       transform: rotate(360deg);

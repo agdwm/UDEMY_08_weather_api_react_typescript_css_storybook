@@ -1,9 +1,9 @@
 @layer components {
   /* Weather result and weather card layout */
   .c-weather-result {
-    margin-block-start: clamp(1.5rem, 3.5vw, 2rem);
     display: grid;
     gap: clamp(0.75rem, 2vw, 1rem);
+    margin-block-start: clamp(1.5rem, 3.5vw, 2rem);
 
     & .c-weather-result__city {
       font-size: clamp(1.75rem, 4vw, 2.5rem);
@@ -19,10 +19,10 @@
     }
 
     & .c-weather-card {
-      min-height: 8.5rem;
       display: grid;
-      align-content: start;
       gap: var(--space-2);
+      align-content: start;
+      min-height: 8.5rem;
 
       &
         :is(
@@ -60,7 +60,7 @@
     }
   }
 
-  @media (min-width: 48rem) {
+  @media (width >= 48rem) {
     .c-weather-result {
       /* Desktop fallback sin container queries: dos columnas desde 48rem. */
       & .c-weather-result__cards {
@@ -72,8 +72,8 @@
   @scope (.c-weather-result) {
     /* Scoped container-query variant */
     :scope {
-      container-type: inline-size;
       container-name: weather-result;
+      container-type: inline-size;
     }
 
     .c-weather-result__city {
@@ -89,10 +89,10 @@
     }
 
     .c-weather-card {
-      min-height: 8.5rem;
       display: grid;
-      align-content: start;
       gap: var(--space-2);
+      align-content: start;
+      min-height: 8.5rem;
 
       &
         :is(
@@ -137,8 +137,8 @@
 
   @supports not (container-type: inline-size) {
     .c-weather-result {
-      container-type: normal;
       container-name: none;
+      container-type: normal;
     }
   }
 }

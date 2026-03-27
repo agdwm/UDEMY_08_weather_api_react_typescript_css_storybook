@@ -10,9 +10,14 @@
  */
 @layer base {
   /* ===================== PRIMITIVE TOKENS ===================== */
+
+  /* prettier-ignore */
+  /* stylelint-disable order/properties-order */
   :root {
     /* Color Primitives (fallback + OKLCH) */
+
     /* ===================== PRIMITIVE TOKENS ===================== */
+
     /* Colores base, no se usan directamente en componentes */
     --color-blue-500: hsl(218 85% 56%);
     --color-blue-500: oklch(65.09% 0.201 255.98);
@@ -54,6 +59,7 @@
     --color-white: oklch(100% 0 0);
 
     /* ===================== SEMANTIC TOKENS ===================== */
+
     /* Colores con significado en la UI */
     --color-text: var(--color-gray-900);
     --color-muted: var(--color-gray-500);
@@ -75,7 +81,7 @@
 
     --color-ring-danger: hsl(0 77% 60% / 0.18);
     --color-ring-danger: oklch(62.88% 0.233 29.23 / 0.18);
-
+    
     --gradient-primary: linear-gradient(
       135deg,
       var(--color-primary) 0%,
@@ -93,9 +99,9 @@
      * TIPOGRAFÍA
      * Stack de fuentes ordenadas por preferencia (fallback)
      */
-    --font-sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --font-sans: system-ui, -apple-system, segoe ui, roboto, arial, sans-serif;
     --font-mono:
-      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      ui-monospace, sfmono-regular, menlo, monaco, consolas, "Liberation Mono",
       "Courier New", monospace;
 
     /**
@@ -137,6 +143,7 @@
      * SOMBRAS
      * Profundidad visual mediante sombras
      */
+
     /* ===================== SHADOWS ===================== */
     --shadow-xs: 0 1px 2px hsl(0 0% 0% / 0.04); /* Sombra sutil para bordes o detalles */
     --shadow-xs: 0 1px 2px oklch(0% 0 0 / 0.04);

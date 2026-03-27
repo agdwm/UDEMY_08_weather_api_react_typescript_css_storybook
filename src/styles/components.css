@@ -1,20 +1,20 @@
 /* Layout */
-@import "./layout/shell.css";
-@import "./layout/header.css";
+@import url("./layout/shell.css");
+@import url("./layout/header.css");
 
 /* Primitives */
-@import "./primitives/card.css";
-@import "./primitives/label.css";
-@import "./primitives/input.css";
-@import "./primitives/select.css";
-@import "./primitives/switch.css";
-@import "./primitives/button.css";
+@import url("./primitives/card.css");
+@import url("./primitives/label.css");
+@import url("./primitives/input.css");
+@import url("./primitives/select.css");
+@import url("./primitives/switch.css");
+@import url("./primitives/button.css");
 
 /* Feedback */
-@import "./feedback/alert.css";
-@import "./feedback/error.css";
-@import "./feedback/loading.css";
+@import url("./feedback/alert.css");
+@import url("./feedback/error.css");
+@import url("./feedback/loading.css");
 
 /* Weather */
-@import "./weather/form.css";
-@import "./weather/result.css";
+@import url("./weather/form.css");
+@import url("./weather/result.css");

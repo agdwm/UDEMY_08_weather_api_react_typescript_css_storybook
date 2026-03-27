@@ -56,6 +56,7 @@
   p {
     text-wrap: pretty;
   }
+
   h1,
   h2,
   h3,
@@ -80,19 +81,18 @@
 @layer base {
   :root {
     font-family: var(--font-sans);
-    line-height: var(--line-height-base);
     font-weight: var(--font-weight-base);
-
+    line-height: var(--line-height-base);
+    text-rendering: optimizelegibility;
     color-scheme: var(--color-scheme-base);
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
   }
 
   body {
-    color: var(--color-text);
     background-color: var(--color-bg);
+    color: var(--color-text);
 
     /* Tipografía base accesible */
     line-height: var(--line-height-base);
